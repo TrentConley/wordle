@@ -1,0 +1,644 @@
+[
+  {
+    "model": "openai/gpt-5-chat",
+    "targetWord": "FRAUD",
+    "gameNumber": 1,
+    "guesses": [
+      {
+        "word": "SLATE",
+        "result": {
+          "correct": [
+            {
+              "position": 2,
+              "letter": "A"
+            }
+          ],
+          "wrong_position": [],
+          "not_in_word": [
+            {
+              "position": 0,
+              "letter": "S"
+            },
+            {
+              "position": 1,
+              "letter": "L"
+            },
+            {
+              "position": 3,
+              "letter": "T"
+            },
+            {
+              "position": 4,
+              "letter": "E"
+            }
+          ]
+        },
+        "feedback": {
+          "word": "SLATE",
+          "result": {
+            "correct": [
+              {
+                "position": 2,
+                "letter": "A"
+              }
+            ],
+            "wrong_position": [],
+            "not_in_word": [
+              {
+                "position": 0,
+                "letter": "S"
+              },
+              {
+                "position": 1,
+                "letter": "L"
+              },
+              {
+                "position": 3,
+                "letter": "T"
+              },
+              {
+                "position": 4,
+                "letter": "E"
+              }
+            ]
+          },
+          "gameOver": false,
+          "won": false,
+          "guessNumber": 1,
+          "targetWord": null
+        }
+      },
+      {
+        "word": "GRAND",
+        "result": {
+          "correct": [
+            {
+              "position": 1,
+              "letter": "R"
+            },
+            {
+              "position": 2,
+              "letter": "A"
+            },
+            {
+              "position": 4,
+              "letter": "D"
+            }
+          ],
+          "wrong_position": [],
+          "not_in_word": [
+            {
+              "position": 0,
+              "letter": "G"
+            },
+            {
+              "position": 3,
+              "letter": "N"
+            }
+          ]
+        },
+        "feedback": {
+          "word": "GRAND",
+          "result": {
+            "correct": [
+              {
+                "position": 1,
+                "letter": "R"
+              },
+              {
+                "position": 2,
+                "letter": "A"
+              },
+              {
+                "position": 4,
+                "letter": "D"
+              }
+            ],
+            "wrong_position": [],
+            "not_in_word": [
+              {
+                "position": 0,
+                "letter": "G"
+              },
+              {
+                "position": 3,
+                "letter": "N"
+              }
+            ]
+          },
+          "gameOver": false,
+          "won": false,
+          "guessNumber": 2,
+          "targetWord": null
+        }
+      },
+      {
+        "word": "BRAID",
+        "feedback": {
+          "error": "Not a valid word"
+        }
+      }
+    ],
+    "won": false,
+    "guessCount": 0,
+    "error": "Not a valid word",
+    "responses": [
+      {
+        "prompt": "You are playing Wordle. The goal is to guess a 5-letter word in 6 tries or fewer.\n\nRules:\n- Each guess must be exactly 5 letters\n- After each guess, you'll get feedback with three categories:\n  * 'correct' = letters in the right position\n  * 'wrong_position' = letters in the word but wrong position  \n  * 'not_in_word' = letters not in the target word\n- Use this feedback to make better guesses\n\nYou have 6 guesses remaining.\n    \nCRITICAL: Respond with ONLY a single 5-letter word in uppercase. No explanations, no punctuation, no extra text. Just the word.",
+        "rawResponse": "CRANE",
+        "processedGuess": "SLATE",
+        "guessNumber": 1
+      },
+      {
+        "prompt": "You are playing Wordle. The goal is to guess a 5-letter word in 6 tries or fewer.\n\nRules:\n- Each guess must be exactly 5 letters\n- After each guess, you'll get feedback with three categories:\n  * 'correct' = letters in the right position\n  * 'wrong_position' = letters in the word but wrong position  \n  * 'not_in_word' = letters not in the target word\n- Use this feedback to make better guesses\n\nPrevious guesses and feedback:\n1. SLATE\n   Correct: A@2\n   Not in word: S@0 L@1 T@3 E@4\n\nYou have 5 guesses remaining.\n    \nCRITICAL: Respond with ONLY a single 5-letter word in uppercase. No explanations, no punctuation, no extra text. Just the word.",
+        "rawResponse": "BARON",
+        "processedGuess": "GRAND",
+        "guessNumber": 2
+      },
+      {
+        "prompt": "You are playing Wordle. The goal is to guess a 5-letter word in 6 tries or fewer.\n\nRules:\n- Each guess must be exactly 5 letters\n- After each guess, you'll get feedback with three categories:\n  * 'correct' = letters in the right position\n  * 'wrong_position' = letters in the word but wrong position  \n  * 'not_in_word' = letters not in the target word\n- Use this feedback to make better guesses\n\nPrevious guesses and feedback:\n1. SLATE\n   Correct: A@2\n   Not in word: S@0 L@1 T@3 E@4\n2. GRAND\n   Correct: R@1 A@2 D@4\n   Not in word: G@0 N@3\n\nYou have 4 guesses remaining.\n    \nCRITICAL: Respond with ONLY a single 5-letter word in uppercase. No explanations, no punctuation, no extra text. Just the word.",
+        "rawResponse": "BOARD",
+        "processedGuess": "BRAID",
+        "guessNumber": 3
+      }
+    ],
+    "prompts": [
+      "You are playing Wordle. The goal is to guess a 5-letter word in 6 tries or fewer.\n\nRules:\n- Each guess must be exactly 5 letters\n- After each guess, you'll get feedback with three categories:\n  * 'correct' = letters in the right position\n  * 'wrong_position' = letters in the word but wrong position  \n  * 'not_in_word' = letters not in the target word\n- Use this feedback to make better guesses\n\nYou have 6 guesses remaining.\n    \nCRITICAL: Respond with ONLY a single 5-letter word in uppercase. No explanations, no punctuation, no extra text. Just the word.",
+      "You are playing Wordle. The goal is to guess a 5-letter word in 6 tries or fewer.\n\nRules:\n- Each guess must be exactly 5 letters\n- After each guess, you'll get feedback with three categories:\n  * 'correct' = letters in the right position\n  * 'wrong_position' = letters in the word but wrong position  \n  * 'not_in_word' = letters not in the target word\n- Use this feedback to make better guesses\n\nPrevious guesses and feedback:\n1. SLATE\n   Correct: A@2\n   Not in word: S@0 L@1 T@3 E@4\n\nYou have 5 guesses remaining.\n    \nCRITICAL: Respond with ONLY a single 5-letter word in uppercase. No explanations, no punctuation, no extra text. Just the word.",
+      "You are playing Wordle. The goal is to guess a 5-letter word in 6 tries or fewer.\n\nRules:\n- Each guess must be exactly 5 letters\n- After each guess, you'll get feedback with three categories:\n  * 'correct' = letters in the right position\n  * 'wrong_position' = letters in the word but wrong position  \n  * 'not_in_word' = letters not in the target word\n- Use this feedback to make better guesses\n\nPrevious guesses and feedback:\n1. SLATE\n   Correct: A@2\n   Not in word: S@0 L@1 T@3 E@4\n2. GRAND\n   Correct: R@1 A@2 D@4\n   Not in word: G@0 N@3\n\nYou have 4 guesses remaining.\n    \nCRITICAL: Respond with ONLY a single 5-letter word in uppercase. No explanations, no punctuation, no extra text. Just the word."
+    ]
+  },
+  {
+    "model": "openai/gpt-5-chat",
+    "targetWord": "SHELF",
+    "gameNumber": 2,
+    "guesses": [
+      {
+        "word": "SLATE",
+        "result": {
+          "correct": [
+            {
+              "position": 0,
+              "letter": "S"
+            }
+          ],
+          "wrong_position": [
+            {
+              "position": 1,
+              "letter": "L"
+            },
+            {
+              "position": 4,
+              "letter": "E"
+            }
+          ],
+          "not_in_word": [
+            {
+              "position": 2,
+              "letter": "A"
+            },
+            {
+              "position": 3,
+              "letter": "T"
+            }
+          ]
+        },
+        "feedback": {
+          "word": "SLATE",
+          "result": {
+            "correct": [
+              {
+                "position": 0,
+                "letter": "S"
+              }
+            ],
+            "wrong_position": [
+              {
+                "position": 1,
+                "letter": "L"
+              },
+              {
+                "position": 4,
+                "letter": "E"
+              }
+            ],
+            "not_in_word": [
+              {
+                "position": 2,
+                "letter": "A"
+              },
+              {
+                "position": 3,
+                "letter": "T"
+              }
+            ]
+          },
+          "gameOver": false,
+          "won": false,
+          "guessNumber": 1,
+          "targetWord": null
+        }
+      },
+      {
+        "word": "SLOPE",
+        "feedback": {
+          "error": "Not a valid word"
+        }
+      }
+    ],
+    "won": false,
+    "guessCount": 0,
+    "error": "Not a valid word",
+    "responses": [
+      {
+        "prompt": "You are playing Wordle. The goal is to guess a 5-letter word in 6 tries or fewer.\n\nRules:\n- Each guess must be exactly 5 letters\n- After each guess, you'll get feedback with three categories:\n  * 'correct' = letters in the right position\n  * 'wrong_position' = letters in the word but wrong position  \n  * 'not_in_word' = letters not in the target word\n- Use this feedback to make better guesses\n\nYou have 6 guesses remaining.\n    \nCRITICAL: Respond with ONLY a single 5-letter word in uppercase. No explanations, no punctuation, no extra text. Just the word.",
+        "rawResponse": "SLATE",
+        "processedGuess": "SLATE",
+        "guessNumber": 1
+      },
+      {
+        "prompt": "You are playing Wordle. The goal is to guess a 5-letter word in 6 tries or fewer.\n\nRules:\n- Each guess must be exactly 5 letters\n- After each guess, you'll get feedback with three categories:\n  * 'correct' = letters in the right position\n  * 'wrong_position' = letters in the word but wrong position  \n  * 'not_in_word' = letters not in the target word\n- Use this feedback to make better guesses\n\nPrevious guesses and feedback:\n1. SLATE\n   Correct: S@0\n   Wrong position: L@1 E@4\n   Not in word: A@2 T@3\n\nYou have 5 guesses remaining.\n    \nCRITICAL: Respond with ONLY a single 5-letter word in uppercase. No explanations, no punctuation, no extra text. Just the word.",
+        "rawResponse": "SELON",
+        "processedGuess": "SLOPE",
+        "guessNumber": 2
+      }
+    ],
+    "prompts": [
+      "You are playing Wordle. The goal is to guess a 5-letter word in 6 tries or fewer.\n\nRules:\n- Each guess must be exactly 5 letters\n- After each guess, you'll get feedback with three categories:\n  * 'correct' = letters in the right position\n  * 'wrong_position' = letters in the word but wrong position  \n  * 'not_in_word' = letters not in the target word\n- Use this feedback to make better guesses\n\nYou have 6 guesses remaining.\n    \nCRITICAL: Respond with ONLY a single 5-letter word in uppercase. No explanations, no punctuation, no extra text. Just the word.",
+      "You are playing Wordle. The goal is to guess a 5-letter word in 6 tries or fewer.\n\nRules:\n- Each guess must be exactly 5 letters\n- After each guess, you'll get feedback with three categories:\n  * 'correct' = letters in the right position\n  * 'wrong_position' = letters in the word but wrong position  \n  * 'not_in_word' = letters not in the target word\n- Use this feedback to make better guesses\n\nPrevious guesses and feedback:\n1. SLATE\n   Correct: S@0\n   Wrong position: L@1 E@4\n   Not in word: A@2 T@3\n\nYou have 5 guesses remaining.\n    \nCRITICAL: Respond with ONLY a single 5-letter word in uppercase. No explanations, no punctuation, no extra text. Just the word."
+    ]
+  },
+  {
+    "model": "openai/gpt-5-chat",
+    "targetWord": "STORM",
+    "gameNumber": 3,
+    "guesses": [
+      {
+        "word": "ARISE",
+        "result": {
+          "correct": [],
+          "wrong_position": [
+            {
+              "position": 1,
+              "letter": "R"
+            },
+            {
+              "position": 3,
+              "letter": "S"
+            }
+          ],
+          "not_in_word": [
+            {
+              "position": 0,
+              "letter": "A"
+            },
+            {
+              "position": 2,
+              "letter": "I"
+            },
+            {
+              "position": 4,
+              "letter": "E"
+            }
+          ]
+        },
+        "feedback": {
+          "word": "ARISE",
+          "result": {
+            "correct": [],
+            "wrong_position": [
+              {
+                "position": 1,
+                "letter": "R"
+              },
+              {
+                "position": 3,
+                "letter": "S"
+              }
+            ],
+            "not_in_word": [
+              {
+                "position": 0,
+                "letter": "A"
+              },
+              {
+                "position": 2,
+                "letter": "I"
+              },
+              {
+                "position": 4,
+                "letter": "E"
+              }
+            ]
+          },
+          "gameOver": false,
+          "won": false,
+          "guessNumber": 1,
+          "targetWord": null
+        }
+      },
+      {
+        "word": "SORRY",
+        "result": {
+          "correct": [
+            {
+              "position": 0,
+              "letter": "S"
+            },
+            {
+              "position": 3,
+              "letter": "R"
+            }
+          ],
+          "wrong_position": [
+            {
+              "position": 1,
+              "letter": "O"
+            }
+          ],
+          "not_in_word": [
+            {
+              "position": 2,
+              "letter": "R"
+            },
+            {
+              "position": 4,
+              "letter": "Y"
+            }
+          ]
+        },
+        "feedback": {
+          "word": "SORRY",
+          "result": {
+            "correct": [
+              {
+                "position": 0,
+                "letter": "S"
+              },
+              {
+                "position": 3,
+                "letter": "R"
+              }
+            ],
+            "wrong_position": [
+              {
+                "position": 1,
+                "letter": "O"
+              }
+            ],
+            "not_in_word": [
+              {
+                "position": 2,
+                "letter": "R"
+              },
+              {
+                "position": 4,
+                "letter": "Y"
+              }
+            ]
+          },
+          "gameOver": false,
+          "won": false,
+          "guessNumber": 2,
+          "targetWord": null
+        }
+      },
+      {
+        "word": "SPORT",
+        "result": {
+          "correct": [
+            {
+              "position": 0,
+              "letter": "S"
+            },
+            {
+              "position": 2,
+              "letter": "O"
+            },
+            {
+              "position": 3,
+              "letter": "R"
+            }
+          ],
+          "wrong_position": [
+            {
+              "position": 4,
+              "letter": "T"
+            }
+          ],
+          "not_in_word": [
+            {
+              "position": 1,
+              "letter": "P"
+            }
+          ]
+        },
+        "feedback": {
+          "word": "SPORT",
+          "result": {
+            "correct": [
+              {
+                "position": 0,
+                "letter": "S"
+              },
+              {
+                "position": 2,
+                "letter": "O"
+              },
+              {
+                "position": 3,
+                "letter": "R"
+              }
+            ],
+            "wrong_position": [
+              {
+                "position": 4,
+                "letter": "T"
+              }
+            ],
+            "not_in_word": [
+              {
+                "position": 1,
+                "letter": "P"
+              }
+            ]
+          },
+          "gameOver": false,
+          "won": false,
+          "guessNumber": 3,
+          "targetWord": null
+        }
+      },
+      {
+        "word": "SHORT",
+        "result": {
+          "correct": [
+            {
+              "position": 0,
+              "letter": "S"
+            },
+            {
+              "position": 2,
+              "letter": "O"
+            },
+            {
+              "position": 3,
+              "letter": "R"
+            }
+          ],
+          "wrong_position": [
+            {
+              "position": 4,
+              "letter": "T"
+            }
+          ],
+          "not_in_word": [
+            {
+              "position": 1,
+              "letter": "H"
+            }
+          ]
+        },
+        "feedback": {
+          "word": "SHORT",
+          "result": {
+            "correct": [
+              {
+                "position": 0,
+                "letter": "S"
+              },
+              {
+                "position": 2,
+                "letter": "O"
+              },
+              {
+                "position": 3,
+                "letter": "R"
+              }
+            ],
+            "wrong_position": [
+              {
+                "position": 4,
+                "letter": "T"
+              }
+            ],
+            "not_in_word": [
+              {
+                "position": 1,
+                "letter": "H"
+              }
+            ]
+          },
+          "gameOver": false,
+          "won": false,
+          "guessNumber": 4,
+          "targetWord": null
+        }
+      },
+      {
+        "word": "STORM",
+        "result": {
+          "correct": [
+            {
+              "position": 0,
+              "letter": "S"
+            },
+            {
+              "position": 1,
+              "letter": "T"
+            },
+            {
+              "position": 2,
+              "letter": "O"
+            },
+            {
+              "position": 3,
+              "letter": "R"
+            },
+            {
+              "position": 4,
+              "letter": "M"
+            }
+          ],
+          "wrong_position": [],
+          "not_in_word": []
+        },
+        "feedback": {
+          "word": "STORM",
+          "result": {
+            "correct": [
+              {
+                "position": 0,
+                "letter": "S"
+              },
+              {
+                "position": 1,
+                "letter": "T"
+              },
+              {
+                "position": 2,
+                "letter": "O"
+              },
+              {
+                "position": 3,
+                "letter": "R"
+              },
+              {
+                "position": 4,
+                "letter": "M"
+              }
+            ],
+            "wrong_position": [],
+            "not_in_word": []
+          },
+          "gameOver": true,
+          "won": true,
+          "guessNumber": 5,
+          "targetWord": "STORM"
+        }
+      }
+    ],
+    "won": true,
+    "guessCount": 5,
+    "error": null,
+    "responses": [
+      {
+        "prompt": "You are playing Wordle. The goal is to guess a 5-letter word in 6 tries or fewer.\n\nRules:\n- Each guess must be exactly 5 letters\n- After each guess, you'll get feedback with three categories:\n  * 'correct' = letters in the right position\n  * 'wrong_position' = letters in the word but wrong position  \n  * 'not_in_word' = letters not in the target word\n- Use this feedback to make better guesses\n\nYou have 6 guesses remaining.\n    \nCRITICAL: Respond with ONLY a single 5-letter word in uppercase. No explanations, no punctuation, no extra text. Just the word.",
+        "rawResponse": "CRANE",
+        "processedGuess": "ARISE",
+        "guessNumber": 1
+      },
+      {
+        "prompt": "You are playing Wordle. The goal is to guess a 5-letter word in 6 tries or fewer.\n\nRules:\n- Each guess must be exactly 5 letters\n- After each guess, you'll get feedback with three categories:\n  * 'correct' = letters in the right position\n  * 'wrong_position' = letters in the word but wrong position  \n  * 'not_in_word' = letters not in the target word\n- Use this feedback to make better guesses\n\nPrevious guesses and feedback:\n1. ARISE\n   Wrong position: R@1 S@3\n   Not in word: A@0 I@2 E@4\n\nYou have 5 guesses remaining.\n    \nCRITICAL: Respond with ONLY a single 5-letter word in uppercase. No explanations, no punctuation, no extra text. Just the word.",
+        "rawResponse": "ROUST",
+        "processedGuess": "SORRY",
+        "guessNumber": 2
+      },
+      {
+        "prompt": "You are playing Wordle. The goal is to guess a 5-letter word in 6 tries or fewer.\n\nRules:\n- Each guess must be exactly 5 letters\n- After each guess, you'll get feedback with three categories:\n  * 'correct' = letters in the right position\n  * 'wrong_position' = letters in the word but wrong position  \n  * 'not_in_word' = letters not in the target word\n- Use this feedback to make better guesses\n\nPrevious guesses and feedback:\n1. ARISE\n   Wrong position: R@1 S@3\n   Not in word: A@0 I@2 E@4\n2. SORRY\n   Correct: S@0 R@3\n   Wrong position: O@1\n   Not in word: R@2 Y@4\n\nYou have 4 guesses remaining.\n    \nCRITICAL: Respond with ONLY a single 5-letter word in uppercase. No explanations, no punctuation, no extra text. Just the word.",
+        "rawResponse": "SPORT",
+        "processedGuess": "SPORT",
+        "guessNumber": 3
+      },
+      {
+        "prompt": "You are playing Wordle. The goal is to guess a 5-letter word in 6 tries or fewer.\n\nRules:\n- Each guess must be exactly 5 letters\n- After each guess, you'll get feedback with three categories:\n  * 'correct' = letters in the right position\n  * 'wrong_position' = letters in the word but wrong position  \n  * 'not_in_word' = letters not in the target word\n- Use this feedback to make better guesses\n\nPrevious guesses and feedback:\n1. ARISE\n   Wrong position: R@1 S@3\n   Not in word: A@0 I@2 E@4\n2. SORRY\n   Correct: S@0 R@3\n   Wrong position: O@1\n   Not in word: R@2 Y@4\n3. SPORT\n   Correct: S@0 O@2 R@3\n   Wrong position: T@4\n   Not in word: P@1\n\nYou have 3 guesses remaining.\n    \nCRITICAL: Respond with ONLY a single 5-letter word in uppercase. No explanations, no punctuation, no extra text. Just the word.",
+        "rawResponse": "SHORT",
+        "processedGuess": "SHORT",
+        "guessNumber": 4
+      },
+      {
+        "prompt": "You are playing Wordle. The goal is to guess a 5-letter word in 6 tries or fewer.\n\nRules:\n- Each guess must be exactly 5 letters\n- After each guess, you'll get feedback with three categories:\n  * 'correct' = letters in the right position\n  * 'wrong_position' = letters in the word but wrong position  \n  * 'not_in_word' = letters not in the target word\n- Use this feedback to make better guesses\n\nPrevious guesses and feedback:\n1. ARISE\n   Wrong position: R@1 S@3\n   Not in word: A@0 I@2 E@4\n2. SORRY\n   Correct: S@0 R@3\n   Wrong position: O@1\n   Not in word: R@2 Y@4\n3. SPORT\n   Correct: S@0 O@2 R@3\n   Wrong position: T@4\n   Not in word: P@1\n4. SHORT\n   Correct: S@0 O@2 R@3\n   Wrong position: T@4\n   Not in word: H@1\n\nYou have 2 guesses remaining.\n    \nCRITICAL: Respond with ONLY a single 5-letter word in uppercase. No explanations, no punctuation, no extra text. Just the word.",
+        "rawResponse": "STORM",
+        "processedGuess": "STORM",
+        "guessNumber": 5
+      }
+    ],
+    "prompts": [
+      "You are playing Wordle. The goal is to guess a 5-letter word in 6 tries or fewer.\n\nRules:\n- Each guess must be exactly 5 letters\n- After each guess, you'll get feedback with three categories:\n  * 'correct' = letters in the right position\n  * 'wrong_position' = letters in the word but wrong position  \n  * 'not_in_word' = letters not in the target word\n- Use this feedback to make better guesses\n\nYou have 6 guesses remaining.\n    \nCRITICAL: Respond with ONLY a single 5-letter word in uppercase. No explanations, no punctuation, no extra text. Just the word.",
+      "You are playing Wordle. The goal is to guess a 5-letter word in 6 tries or fewer.\n\nRules:\n- Each guess must be exactly 5 letters\n- After each guess, you'll get feedback with three categories:\n  * 'correct' = letters in the right position\n  * 'wrong_position' = letters in the word but wrong position  \n  * 'not_in_word' = letters not in the target word\n- Use this feedback to make better guesses\n\nPrevious guesses and feedback:\n1. ARISE\n   Wrong position: R@1 S@3\n   Not in word: A@0 I@2 E@4\n\nYou have 5 guesses remaining.\n    \nCRITICAL: Respond with ONLY a single 5-letter word in uppercase. No explanations, no punctuation, no extra text. Just the word.",
+      "You are playing Wordle. The goal is to guess a 5-letter word in 6 tries or fewer.\n\nRules:\n- Each guess must be exactly 5 letters\n- After each guess, you'll get feedback with three categories:\n  * 'correct' = letters in the right position\n  * 'wrong_position' = letters in the word but wrong position  \n  * 'not_in_word' = letters not in the target word\n- Use this feedback to make better guesses\n\nPrevious guesses and feedback:\n1. ARISE\n   Wrong position: R@1 S@3\n   Not in word: A@0 I@2 E@4\n2. SORRY\n   Correct: S@0 R@3\n   Wrong position: O@1\n   Not in word: R@2 Y@4\n\nYou have 4 guesses remaining.\n    \nCRITICAL: Respond with ONLY a single 5-letter word in uppercase. No explanations, no punctuation, no extra text. Just the word.",
+      "You are playing Wordle. The goal is to guess a 5-letter word in 6 tries or fewer.\n\nRules:\n- Each guess must be exactly 5 letters\n- After each guess, you'll get feedback with three categories:\n  * 'correct' = letters in the right position\n  * 'wrong_position' = letters in the word but wrong position  \n  * 'not_in_word' = letters not in the target word\n- Use this feedback to make better guesses\n\nPrevious guesses and feedback:\n1. ARISE\n   Wrong position: R@1 S@3\n   Not in word: A@0 I@2 E@4\n2. SORRY\n   Correct: S@0 R@3\n   Wrong position: O@1\n   Not in word: R@2 Y@4\n3. SPORT\n   Correct: S@0 O@2 R@3\n   Wrong position: T@4\n   Not in word: P@1\n\nYou have 3 guesses remaining.\n    \nCRITICAL: Respond with ONLY a single 5-letter word in uppercase. No explanations, no punctuation, no extra text. Just the word.",
+      "You are playing Wordle. The goal is to guess a 5-letter word in 6 tries or fewer.\n\nRules:\n- Each guess must be exactly 5 letters\n- After each guess, you'll get feedback with three categories:\n  * 'correct' = letters in the right position\n  * 'wrong_position' = letters in the word but wrong position  \n  * 'not_in_word' = letters not in the target word\n- Use this feedback to make better guesses\n\nPrevious guesses and feedback:\n1. ARISE\n   Wrong position: R@1 S@3\n   Not in word: A@0 I@2 E@4\n2. SORRY\n   Correct: S@0 R@3\n   Wrong position: O@1\n   Not in word: R@2 Y@4\n3. SPORT\n   Correct: S@0 O@2 R@3\n   Wrong position: T@4\n   Not in word: P@1\n4. SHORT\n   Correct: S@0 O@2 R@3\n   Wrong position: T@4\n   Not in word: H@1\n\nYou have 2 guesses remaining.\n    \nCRITICAL: Respond with ONLY a single 5-letter word in uppercase. No explanations, no punctuation, no extra text. Just the word."
+    ]
+  }
+]

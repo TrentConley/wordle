@@ -1,0 +1,3307 @@
+{
+  "metadata": {
+    "timestamp": "2025-08-31T16:09:36.240Z",
+    "totalModels": 1,
+    "models": [
+      "anthropic/claude-sonnet-4"
+    ],
+    "version": "2.0"
+  },
+  "results": {
+    "anthropic/claude-sonnet-4": {
+      "games": [
+        {
+          "model": "anthropic/claude-sonnet-4",
+          "targetWord": "DOUBT",
+          "guesses": [
+            {
+              "word": "AROSE",
+              "result": {
+                "correct": [],
+                "wrong_position": [
+                  {
+                    "position": 2,
+                    "letter": "O"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 0,
+                    "letter": "A"
+                  },
+                  {
+                    "position": 1,
+                    "letter": "R"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "S"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "E"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "AROSE",
+                "result": {
+                  "correct": [],
+                  "wrong_position": [
+                    {
+                      "position": 2,
+                      "letter": "O"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 0,
+                      "letter": "A"
+                    },
+                    {
+                      "position": 1,
+                      "letter": "R"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "S"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "E"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 1,
+                "targetWord": null
+              },
+              "rawResponse": "AROSE",
+              "timestamp": "2025-08-31T16:08:23.162Z"
+            },
+            {
+              "word": "MOUND",
+              "result": {
+                "correct": [
+                  {
+                    "position": 1,
+                    "letter": "O"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "U"
+                  }
+                ],
+                "wrong_position": [
+                  {
+                    "position": 4,
+                    "letter": "D"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 0,
+                    "letter": "M"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "N"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "MOUND",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 1,
+                      "letter": "O"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "U"
+                    }
+                  ],
+                  "wrong_position": [
+                    {
+                      "position": 4,
+                      "letter": "D"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 0,
+                      "letter": "M"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "N"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 2,
+                "targetWord": null
+              },
+              "rawResponse": "MOUND",
+              "timestamp": "2025-08-31T16:08:24.834Z"
+            },
+            {
+              "word": "YOUTH",
+              "result": {
+                "correct": [
+                  {
+                    "position": 1,
+                    "letter": "O"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "U"
+                  }
+                ],
+                "wrong_position": [
+                  {
+                    "position": 3,
+                    "letter": "T"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 0,
+                    "letter": "Y"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "H"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "YOUTH",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 1,
+                      "letter": "O"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "U"
+                    }
+                  ],
+                  "wrong_position": [
+                    {
+                      "position": 3,
+                      "letter": "T"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 0,
+                      "letter": "Y"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "H"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 3,
+                "targetWord": null
+              },
+              "rawResponse": "YOUTH",
+              "timestamp": "2025-08-31T16:08:26.141Z"
+            },
+            {
+              "word": "DOUBT",
+              "result": {
+                "correct": [
+                  {
+                    "position": 0,
+                    "letter": "D"
+                  },
+                  {
+                    "position": 1,
+                    "letter": "O"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "U"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "B"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "T"
+                  }
+                ],
+                "wrong_position": [],
+                "not_in_word": []
+              },
+              "feedback": {
+                "word": "DOUBT",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 0,
+                      "letter": "D"
+                    },
+                    {
+                      "position": 1,
+                      "letter": "O"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "U"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "B"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "T"
+                    }
+                  ],
+                  "wrong_position": [],
+                  "not_in_word": []
+                },
+                "gameOver": true,
+                "won": true,
+                "guessNumber": 4,
+                "targetWord": "DOUBT"
+              },
+              "rawResponse": "DOUBT",
+              "timestamp": "2025-08-31T16:08:27.664Z"
+            }
+          ],
+          "won": true,
+          "guessCount": 4,
+          "error": null
+        },
+        {
+          "model": "anthropic/claude-sonnet-4",
+          "targetWord": "LIVES",
+          "guesses": [
+            {
+              "word": "AROSE",
+              "result": {
+                "correct": [],
+                "wrong_position": [
+                  {
+                    "position": 3,
+                    "letter": "S"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "E"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 0,
+                    "letter": "A"
+                  },
+                  {
+                    "position": 1,
+                    "letter": "R"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "O"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "AROSE",
+                "result": {
+                  "correct": [],
+                  "wrong_position": [
+                    {
+                      "position": 3,
+                      "letter": "S"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "E"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 0,
+                      "letter": "A"
+                    },
+                    {
+                      "position": 1,
+                      "letter": "R"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "O"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 1,
+                "targetWord": null
+              },
+              "rawResponse": "AROSE",
+              "timestamp": "2025-08-31T16:08:29.086Z"
+            },
+            {
+              "word": "STEIN",
+              "result": {
+                "correct": [],
+                "wrong_position": [
+                  {
+                    "position": 0,
+                    "letter": "S"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "E"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "I"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 1,
+                    "letter": "T"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "N"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "STEIN",
+                "result": {
+                  "correct": [],
+                  "wrong_position": [
+                    {
+                      "position": 0,
+                      "letter": "S"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "E"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "I"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 1,
+                      "letter": "T"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "N"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 2,
+                "targetWord": null
+              },
+              "rawResponse": "STEIN",
+              "timestamp": "2025-08-31T16:08:31.092Z"
+            },
+            {
+              "word": "HIDES",
+              "result": {
+                "correct": [
+                  {
+                    "position": 1,
+                    "letter": "I"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "E"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "S"
+                  }
+                ],
+                "wrong_position": [],
+                "not_in_word": [
+                  {
+                    "position": 0,
+                    "letter": "H"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "D"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "HIDES",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 1,
+                      "letter": "I"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "E"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "S"
+                    }
+                  ],
+                  "wrong_position": [],
+                  "not_in_word": [
+                    {
+                      "position": 0,
+                      "letter": "H"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "D"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 3,
+                "targetWord": null
+              },
+              "rawResponse": "HIDES",
+              "timestamp": "2025-08-31T16:08:32.746Z"
+            },
+            {
+              "word": "PILES",
+              "result": {
+                "correct": [
+                  {
+                    "position": 1,
+                    "letter": "I"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "E"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "S"
+                  }
+                ],
+                "wrong_position": [
+                  {
+                    "position": 2,
+                    "letter": "L"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 0,
+                    "letter": "P"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "PILES",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 1,
+                      "letter": "I"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "E"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "S"
+                    }
+                  ],
+                  "wrong_position": [
+                    {
+                      "position": 2,
+                      "letter": "L"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 0,
+                      "letter": "P"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 4,
+                "targetWord": null
+              },
+              "rawResponse": "PILES",
+              "timestamp": "2025-08-31T16:08:34.681Z"
+            },
+            {
+              "word": "MILES",
+              "result": {
+                "correct": [
+                  {
+                    "position": 1,
+                    "letter": "I"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "E"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "S"
+                  }
+                ],
+                "wrong_position": [
+                  {
+                    "position": 2,
+                    "letter": "L"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 0,
+                    "letter": "M"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "MILES",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 1,
+                      "letter": "I"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "E"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "S"
+                    }
+                  ],
+                  "wrong_position": [
+                    {
+                      "position": 2,
+                      "letter": "L"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 0,
+                      "letter": "M"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 5,
+                "targetWord": null
+              },
+              "rawResponse": "MILES",
+              "timestamp": "2025-08-31T16:08:36.087Z"
+            },
+            {
+              "word": "LICKS",
+              "result": {
+                "correct": [
+                  {
+                    "position": 0,
+                    "letter": "L"
+                  },
+                  {
+                    "position": 1,
+                    "letter": "I"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "S"
+                  }
+                ],
+                "wrong_position": [],
+                "not_in_word": [
+                  {
+                    "position": 2,
+                    "letter": "C"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "K"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "LICKS",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 0,
+                      "letter": "L"
+                    },
+                    {
+                      "position": 1,
+                      "letter": "I"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "S"
+                    }
+                  ],
+                  "wrong_position": [],
+                  "not_in_word": [
+                    {
+                      "position": 2,
+                      "letter": "C"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "K"
+                    }
+                  ]
+                },
+                "gameOver": true,
+                "won": false,
+                "guessNumber": 6,
+                "targetWord": "LIVES"
+              },
+              "rawResponse": "LICKS",
+              "timestamp": "2025-08-31T16:08:37.442Z"
+            }
+          ],
+          "won": false,
+          "guessCount": 6,
+          "error": null
+        },
+        {
+          "model": "anthropic/claude-sonnet-4",
+          "targetWord": "LASER",
+          "guesses": [
+            {
+              "word": "AROSE",
+              "result": {
+                "correct": [],
+                "wrong_position": [
+                  {
+                    "position": 0,
+                    "letter": "A"
+                  },
+                  {
+                    "position": 1,
+                    "letter": "R"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "S"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "E"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 2,
+                    "letter": "O"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "AROSE",
+                "result": {
+                  "correct": [],
+                  "wrong_position": [
+                    {
+                      "position": 0,
+                      "letter": "A"
+                    },
+                    {
+                      "position": 1,
+                      "letter": "R"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "S"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "E"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 2,
+                      "letter": "O"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 1,
+                "targetWord": null
+              },
+              "rawResponse": "AROSE",
+              "timestamp": "2025-08-31T16:08:38.910Z"
+            },
+            {
+              "word": "STARE",
+              "result": {
+                "correct": [],
+                "wrong_position": [
+                  {
+                    "position": 0,
+                    "letter": "S"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "A"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "R"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "E"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 1,
+                    "letter": "T"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "STARE",
+                "result": {
+                  "correct": [],
+                  "wrong_position": [
+                    {
+                      "position": 0,
+                      "letter": "S"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "A"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "R"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "E"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 1,
+                      "letter": "T"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 2,
+                "targetWord": null
+              },
+              "rawResponse": "STARE",
+              "timestamp": "2025-08-31T16:08:40.549Z"
+            },
+            {
+              "word": "RAPES",
+              "result": {
+                "correct": [
+                  {
+                    "position": 1,
+                    "letter": "A"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "E"
+                  }
+                ],
+                "wrong_position": [
+                  {
+                    "position": 0,
+                    "letter": "R"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "S"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 2,
+                    "letter": "P"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "RAPES",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 1,
+                      "letter": "A"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "E"
+                    }
+                  ],
+                  "wrong_position": [
+                    {
+                      "position": 0,
+                      "letter": "R"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "S"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 2,
+                      "letter": "P"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 3,
+                "targetWord": null
+              },
+              "rawResponse": "RAPES",
+              "timestamp": "2025-08-31T16:08:41.743Z"
+            },
+            {
+              "word": "SABER",
+              "result": {
+                "correct": [
+                  {
+                    "position": 1,
+                    "letter": "A"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "E"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "R"
+                  }
+                ],
+                "wrong_position": [
+                  {
+                    "position": 0,
+                    "letter": "S"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 2,
+                    "letter": "B"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "SABER",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 1,
+                      "letter": "A"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "E"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "R"
+                    }
+                  ],
+                  "wrong_position": [
+                    {
+                      "position": 0,
+                      "letter": "S"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 2,
+                      "letter": "B"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 4,
+                "targetWord": null
+              },
+              "rawResponse": "SABER",
+              "timestamp": "2025-08-31T16:08:43.427Z"
+            },
+            {
+              "word": "LASER",
+              "result": {
+                "correct": [
+                  {
+                    "position": 0,
+                    "letter": "L"
+                  },
+                  {
+                    "position": 1,
+                    "letter": "A"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "S"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "E"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "R"
+                  }
+                ],
+                "wrong_position": [],
+                "not_in_word": []
+              },
+              "feedback": {
+                "word": "LASER",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 0,
+                      "letter": "L"
+                    },
+                    {
+                      "position": 1,
+                      "letter": "A"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "S"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "E"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "R"
+                    }
+                  ],
+                  "wrong_position": [],
+                  "not_in_word": []
+                },
+                "gameOver": true,
+                "won": true,
+                "guessNumber": 5,
+                "targetWord": "LASER"
+              },
+              "rawResponse": "LASER",
+              "timestamp": "2025-08-31T16:08:45.064Z"
+            }
+          ],
+          "won": true,
+          "guessCount": 5,
+          "error": null
+        },
+        {
+          "model": "anthropic/claude-sonnet-4",
+          "targetWord": "APPLY",
+          "guesses": [
+            {
+              "word": "AROSE",
+              "result": {
+                "correct": [
+                  {
+                    "position": 0,
+                    "letter": "A"
+                  }
+                ],
+                "wrong_position": [],
+                "not_in_word": [
+                  {
+                    "position": 1,
+                    "letter": "R"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "O"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "S"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "E"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "AROSE",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 0,
+                      "letter": "A"
+                    }
+                  ],
+                  "wrong_position": [],
+                  "not_in_word": [
+                    {
+                      "position": 1,
+                      "letter": "R"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "O"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "S"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "E"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 1,
+                "targetWord": null
+              },
+              "rawResponse": "AROSE",
+              "timestamp": "2025-08-31T16:08:46.364Z"
+            },
+            {
+              "word": "ADULT",
+              "result": {
+                "correct": [
+                  {
+                    "position": 0,
+                    "letter": "A"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "L"
+                  }
+                ],
+                "wrong_position": [],
+                "not_in_word": [
+                  {
+                    "position": 1,
+                    "letter": "D"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "U"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "T"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "ADULT",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 0,
+                      "letter": "A"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "L"
+                    }
+                  ],
+                  "wrong_position": [],
+                  "not_in_word": [
+                    {
+                      "position": 1,
+                      "letter": "D"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "U"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "T"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 2,
+                "targetWord": null
+              },
+              "rawResponse": "ADULT",
+              "timestamp": "2025-08-31T16:08:47.860Z"
+            },
+            {
+              "word": "ALIGN",
+              "result": {
+                "correct": [
+                  {
+                    "position": 0,
+                    "letter": "A"
+                  }
+                ],
+                "wrong_position": [
+                  {
+                    "position": 1,
+                    "letter": "L"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 2,
+                    "letter": "I"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "G"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "N"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "ALIGN",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 0,
+                      "letter": "A"
+                    }
+                  ],
+                  "wrong_position": [
+                    {
+                      "position": 1,
+                      "letter": "L"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 2,
+                      "letter": "I"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "G"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "N"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 3,
+                "targetWord": null
+              },
+              "rawResponse": "ALIGN",
+              "timestamp": "2025-08-31T16:08:49.250Z"
+            },
+            {
+              "word": "ALMLY",
+              "result": {
+                "correct": [
+                  {
+                    "position": 0,
+                    "letter": "A"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "L"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "Y"
+                  }
+                ],
+                "wrong_position": [],
+                "not_in_word": [
+                  {
+                    "position": 1,
+                    "letter": "L"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "M"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "ALMLY",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 0,
+                      "letter": "A"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "L"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "Y"
+                    }
+                  ],
+                  "wrong_position": [],
+                  "not_in_word": [
+                    {
+                      "position": 1,
+                      "letter": "L"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "M"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 4,
+                "targetWord": null
+              },
+              "rawResponse": "ALMLY",
+              "timestamp": "2025-08-31T16:08:51.038Z"
+            },
+            {
+              "word": "APPLY",
+              "result": {
+                "correct": [
+                  {
+                    "position": 0,
+                    "letter": "A"
+                  },
+                  {
+                    "position": 1,
+                    "letter": "P"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "P"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "L"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "Y"
+                  }
+                ],
+                "wrong_position": [],
+                "not_in_word": []
+              },
+              "feedback": {
+                "word": "APPLY",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 0,
+                      "letter": "A"
+                    },
+                    {
+                      "position": 1,
+                      "letter": "P"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "P"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "L"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "Y"
+                    }
+                  ],
+                  "wrong_position": [],
+                  "not_in_word": []
+                },
+                "gameOver": true,
+                "won": true,
+                "guessNumber": 5,
+                "targetWord": "APPLY"
+              },
+              "rawResponse": "APPLY",
+              "timestamp": "2025-08-31T16:08:52.394Z"
+            }
+          ],
+          "won": true,
+          "guessCount": 5,
+          "error": null
+        },
+        {
+          "model": "anthropic/claude-sonnet-4",
+          "targetWord": "GROUP",
+          "guesses": [
+            {
+              "word": "AROSE",
+              "result": {
+                "correct": [
+                  {
+                    "position": 1,
+                    "letter": "R"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "O"
+                  }
+                ],
+                "wrong_position": [],
+                "not_in_word": [
+                  {
+                    "position": 0,
+                    "letter": "A"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "S"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "E"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "AROSE",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 1,
+                      "letter": "R"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "O"
+                    }
+                  ],
+                  "wrong_position": [],
+                  "not_in_word": [
+                    {
+                      "position": 0,
+                      "letter": "A"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "S"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "E"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 1,
+                "targetWord": null
+              },
+              "rawResponse": "AROSE",
+              "timestamp": "2025-08-31T16:08:53.681Z"
+            },
+            {
+              "word": "ROUND",
+              "result": {
+                "correct": [],
+                "wrong_position": [
+                  {
+                    "position": 0,
+                    "letter": "R"
+                  },
+                  {
+                    "position": 1,
+                    "letter": "O"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "U"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 3,
+                    "letter": "N"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "D"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "ROUND",
+                "result": {
+                  "correct": [],
+                  "wrong_position": [
+                    {
+                      "position": 0,
+                      "letter": "R"
+                    },
+                    {
+                      "position": 1,
+                      "letter": "O"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "U"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 3,
+                      "letter": "N"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "D"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 2,
+                "targetWord": null
+              },
+              "rawResponse": "ROUND",
+              "timestamp": "2025-08-31T16:08:55.141Z"
+            },
+            {
+              "word": "COURT",
+              "result": {
+                "correct": [],
+                "wrong_position": [
+                  {
+                    "position": 1,
+                    "letter": "O"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "U"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "R"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 0,
+                    "letter": "C"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "T"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "COURT",
+                "result": {
+                  "correct": [],
+                  "wrong_position": [
+                    {
+                      "position": 1,
+                      "letter": "O"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "U"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "R"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 0,
+                      "letter": "C"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "T"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 3,
+                "targetWord": null
+              },
+              "rawResponse": "COURT",
+              "timestamp": "2025-08-31T16:08:56.984Z"
+            },
+            {
+              "word": "HUMOR",
+              "result": {
+                "correct": [],
+                "wrong_position": [
+                  {
+                    "position": 1,
+                    "letter": "U"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "O"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "R"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 0,
+                    "letter": "H"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "M"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "HUMOR",
+                "result": {
+                  "correct": [],
+                  "wrong_position": [
+                    {
+                      "position": 1,
+                      "letter": "U"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "O"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "R"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 0,
+                      "letter": "H"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "M"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 4,
+                "targetWord": null
+              },
+              "rawResponse": "HUMOR",
+              "timestamp": "2025-08-31T16:08:58.431Z"
+            },
+            {
+              "word": "GROUT",
+              "result": {
+                "correct": [
+                  {
+                    "position": 0,
+                    "letter": "G"
+                  },
+                  {
+                    "position": 1,
+                    "letter": "R"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "O"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "U"
+                  }
+                ],
+                "wrong_position": [],
+                "not_in_word": [
+                  {
+                    "position": 4,
+                    "letter": "T"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "GROUT",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 0,
+                      "letter": "G"
+                    },
+                    {
+                      "position": 1,
+                      "letter": "R"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "O"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "U"
+                    }
+                  ],
+                  "wrong_position": [],
+                  "not_in_word": [
+                    {
+                      "position": 4,
+                      "letter": "T"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 5,
+                "targetWord": null
+              },
+              "rawResponse": "GROUT",
+              "timestamp": "2025-08-31T16:09:00.255Z"
+            },
+            {
+              "word": "GROUK",
+              "result": {
+                "correct": [
+                  {
+                    "position": 0,
+                    "letter": "G"
+                  },
+                  {
+                    "position": 1,
+                    "letter": "R"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "O"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "U"
+                  }
+                ],
+                "wrong_position": [],
+                "not_in_word": [
+                  {
+                    "position": 4,
+                    "letter": "K"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "GROUK",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 0,
+                      "letter": "G"
+                    },
+                    {
+                      "position": 1,
+                      "letter": "R"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "O"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "U"
+                    }
+                  ],
+                  "wrong_position": [],
+                  "not_in_word": [
+                    {
+                      "position": 4,
+                      "letter": "K"
+                    }
+                  ]
+                },
+                "gameOver": true,
+                "won": false,
+                "guessNumber": 6,
+                "targetWord": "GROUP"
+              },
+              "rawResponse": "GROUK",
+              "timestamp": "2025-08-31T16:09:01.943Z"
+            }
+          ],
+          "won": false,
+          "guessCount": 6,
+          "error": null
+        },
+        {
+          "model": "anthropic/claude-sonnet-4",
+          "targetWord": "DELAY",
+          "guesses": [
+            {
+              "word": "AROSE",
+              "result": {
+                "correct": [],
+                "wrong_position": [
+                  {
+                    "position": 0,
+                    "letter": "A"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "E"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 1,
+                    "letter": "R"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "O"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "S"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "AROSE",
+                "result": {
+                  "correct": [],
+                  "wrong_position": [
+                    {
+                      "position": 0,
+                      "letter": "A"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "E"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 1,
+                      "letter": "R"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "O"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "S"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 1,
+                "targetWord": null
+              },
+              "rawResponse": "AROSE",
+              "timestamp": "2025-08-31T16:09:03.375Z"
+            },
+            {
+              "word": "DEALT",
+              "result": {
+                "correct": [
+                  {
+                    "position": 0,
+                    "letter": "D"
+                  },
+                  {
+                    "position": 1,
+                    "letter": "E"
+                  }
+                ],
+                "wrong_position": [
+                  {
+                    "position": 2,
+                    "letter": "A"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "L"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 4,
+                    "letter": "T"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "DEALT",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 0,
+                      "letter": "D"
+                    },
+                    {
+                      "position": 1,
+                      "letter": "E"
+                    }
+                  ],
+                  "wrong_position": [
+                    {
+                      "position": 2,
+                      "letter": "A"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "L"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 4,
+                      "letter": "T"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 2,
+                "targetWord": null
+              },
+              "rawResponse": "DEALT",
+              "timestamp": "2025-08-31T16:09:04.829Z"
+            },
+            {
+              "word": "DELAY",
+              "result": {
+                "correct": [
+                  {
+                    "position": 0,
+                    "letter": "D"
+                  },
+                  {
+                    "position": 1,
+                    "letter": "E"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "L"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "A"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "Y"
+                  }
+                ],
+                "wrong_position": [],
+                "not_in_word": []
+              },
+              "feedback": {
+                "word": "DELAY",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 0,
+                      "letter": "D"
+                    },
+                    {
+                      "position": 1,
+                      "letter": "E"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "L"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "A"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "Y"
+                    }
+                  ],
+                  "wrong_position": [],
+                  "not_in_word": []
+                },
+                "gameOver": true,
+                "won": true,
+                "guessNumber": 3,
+                "targetWord": "DELAY"
+              },
+              "rawResponse": "DELAY",
+              "timestamp": "2025-08-31T16:09:06.090Z"
+            }
+          ],
+          "won": true,
+          "guessCount": 3,
+          "error": null
+        },
+        {
+          "model": "anthropic/claude-sonnet-4",
+          "targetWord": "SWEET",
+          "guesses": [
+            {
+              "word": "AROSE",
+              "result": {
+                "correct": [],
+                "wrong_position": [
+                  {
+                    "position": 3,
+                    "letter": "S"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "E"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 0,
+                    "letter": "A"
+                  },
+                  {
+                    "position": 1,
+                    "letter": "R"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "O"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "AROSE",
+                "result": {
+                  "correct": [],
+                  "wrong_position": [
+                    {
+                      "position": 3,
+                      "letter": "S"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "E"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 0,
+                      "letter": "A"
+                    },
+                    {
+                      "position": 1,
+                      "letter": "R"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "O"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 1,
+                "targetWord": null
+              },
+              "rawResponse": "AROSE",
+              "timestamp": "2025-08-31T16:09:07.647Z"
+            },
+            {
+              "word": "STEIN",
+              "result": {
+                "correct": [
+                  {
+                    "position": 0,
+                    "letter": "S"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "E"
+                  }
+                ],
+                "wrong_position": [
+                  {
+                    "position": 1,
+                    "letter": "T"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 3,
+                    "letter": "I"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "N"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "STEIN",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 0,
+                      "letter": "S"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "E"
+                    }
+                  ],
+                  "wrong_position": [
+                    {
+                      "position": 1,
+                      "letter": "T"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 3,
+                      "letter": "I"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "N"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 2,
+                "targetWord": null
+              },
+              "rawResponse": "STEIN",
+              "timestamp": "2025-08-31T16:09:09.134Z"
+            },
+            {
+              "word": "SETUP",
+              "result": {
+                "correct": [
+                  {
+                    "position": 0,
+                    "letter": "S"
+                  }
+                ],
+                "wrong_position": [
+                  {
+                    "position": 1,
+                    "letter": "E"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "T"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 3,
+                    "letter": "U"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "P"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "SETUP",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 0,
+                      "letter": "S"
+                    }
+                  ],
+                  "wrong_position": [
+                    {
+                      "position": 1,
+                      "letter": "E"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "T"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 3,
+                      "letter": "U"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "P"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 3,
+                "targetWord": null
+              },
+              "rawResponse": "SETUP",
+              "timestamp": "2025-08-31T16:09:10.592Z"
+            },
+            {
+              "word": "SHEET",
+              "result": {
+                "correct": [
+                  {
+                    "position": 0,
+                    "letter": "S"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "E"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "E"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "T"
+                  }
+                ],
+                "wrong_position": [],
+                "not_in_word": [
+                  {
+                    "position": 1,
+                    "letter": "H"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "SHEET",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 0,
+                      "letter": "S"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "E"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "E"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "T"
+                    }
+                  ],
+                  "wrong_position": [],
+                  "not_in_word": [
+                    {
+                      "position": 1,
+                      "letter": "H"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 4,
+                "targetWord": null
+              },
+              "rawResponse": "SHEET",
+              "timestamp": "2025-08-31T16:09:12.419Z"
+            },
+            {
+              "word": "SLEET",
+              "result": {
+                "correct": [
+                  {
+                    "position": 0,
+                    "letter": "S"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "E"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "E"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "T"
+                  }
+                ],
+                "wrong_position": [],
+                "not_in_word": [
+                  {
+                    "position": 1,
+                    "letter": "L"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "SLEET",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 0,
+                      "letter": "S"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "E"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "E"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "T"
+                    }
+                  ],
+                  "wrong_position": [],
+                  "not_in_word": [
+                    {
+                      "position": 1,
+                      "letter": "L"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 5,
+                "targetWord": null
+              },
+              "rawResponse": "SLEET",
+              "timestamp": "2025-08-31T16:09:13.816Z"
+            },
+            {
+              "word": "SWEET",
+              "result": {
+                "correct": [
+                  {
+                    "position": 0,
+                    "letter": "S"
+                  },
+                  {
+                    "position": 1,
+                    "letter": "W"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "E"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "E"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "T"
+                  }
+                ],
+                "wrong_position": [],
+                "not_in_word": []
+              },
+              "feedback": {
+                "word": "SWEET",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 0,
+                      "letter": "S"
+                    },
+                    {
+                      "position": 1,
+                      "letter": "W"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "E"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "E"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "T"
+                    }
+                  ],
+                  "wrong_position": [],
+                  "not_in_word": []
+                },
+                "gameOver": true,
+                "won": true,
+                "guessNumber": 6,
+                "targetWord": "SWEET"
+              },
+              "rawResponse": "SWEET",
+              "timestamp": "2025-08-31T16:09:15.311Z"
+            }
+          ],
+          "won": true,
+          "guessCount": 6,
+          "error": null
+        },
+        {
+          "model": "anthropic/claude-sonnet-4",
+          "targetWord": "PETER",
+          "guesses": [
+            {
+              "word": "AROSE",
+              "result": {
+                "correct": [],
+                "wrong_position": [
+                  {
+                    "position": 1,
+                    "letter": "R"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "E"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 0,
+                    "letter": "A"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "O"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "S"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "AROSE",
+                "result": {
+                  "correct": [],
+                  "wrong_position": [
+                    {
+                      "position": 1,
+                      "letter": "R"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "E"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 0,
+                      "letter": "A"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "O"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "S"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 1,
+                "targetWord": null
+              },
+              "rawResponse": "AROSE",
+              "timestamp": "2025-08-31T16:09:16.638Z"
+            },
+            {
+              "word": "THEIR",
+              "result": {
+                "correct": [
+                  {
+                    "position": 4,
+                    "letter": "R"
+                  }
+                ],
+                "wrong_position": [
+                  {
+                    "position": 0,
+                    "letter": "T"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "E"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 1,
+                    "letter": "H"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "I"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "THEIR",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 4,
+                      "letter": "R"
+                    }
+                  ],
+                  "wrong_position": [
+                    {
+                      "position": 0,
+                      "letter": "T"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "E"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 1,
+                      "letter": "H"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "I"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 2,
+                "targetWord": null
+              },
+              "rawResponse": "THEIR",
+              "timestamp": "2025-08-31T16:09:18.340Z"
+            },
+            {
+              "word": "ENTRY",
+              "result": {
+                "correct": [
+                  {
+                    "position": 2,
+                    "letter": "T"
+                  }
+                ],
+                "wrong_position": [
+                  {
+                    "position": 0,
+                    "letter": "E"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "R"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 1,
+                    "letter": "N"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "Y"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "ENTRY",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 2,
+                      "letter": "T"
+                    }
+                  ],
+                  "wrong_position": [
+                    {
+                      "position": 0,
+                      "letter": "E"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "R"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 1,
+                      "letter": "N"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "Y"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 3,
+                "targetWord": null
+              },
+              "rawResponse": "ENTRY",
+              "timestamp": "2025-08-31T16:09:19.853Z"
+            },
+            {
+              "word": "METRO",
+              "result": {
+                "correct": [
+                  {
+                    "position": 1,
+                    "letter": "E"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "T"
+                  }
+                ],
+                "wrong_position": [
+                  {
+                    "position": 3,
+                    "letter": "R"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 0,
+                    "letter": "M"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "O"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "METRO",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 1,
+                      "letter": "E"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "T"
+                    }
+                  ],
+                  "wrong_position": [
+                    {
+                      "position": 3,
+                      "letter": "R"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 0,
+                      "letter": "M"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "O"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 4,
+                "targetWord": null
+              },
+              "rawResponse": "METRO",
+              "timestamp": "2025-08-31T16:09:21.393Z"
+            },
+            {
+              "word": "RETCH",
+              "result": {
+                "correct": [
+                  {
+                    "position": 1,
+                    "letter": "E"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "T"
+                  }
+                ],
+                "wrong_position": [
+                  {
+                    "position": 0,
+                    "letter": "R"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 3,
+                    "letter": "C"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "H"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "RETCH",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 1,
+                      "letter": "E"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "T"
+                    }
+                  ],
+                  "wrong_position": [
+                    {
+                      "position": 0,
+                      "letter": "R"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 3,
+                      "letter": "C"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "H"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 5,
+                "targetWord": null
+              },
+              "rawResponse": "RETCH",
+              "timestamp": "2025-08-31T16:09:22.921Z"
+            }
+          ],
+          "won": false,
+          "guessCount": 0,
+          "error": "API Error: Invalid response: Word must be exactly 5 letters, got \"LETTER\" (6 letters)"
+        },
+        {
+          "model": "anthropic/claude-sonnet-4",
+          "targetWord": "CABLE",
+          "guesses": [
+            {
+              "word": "AROSE",
+              "result": {
+                "correct": [
+                  {
+                    "position": 4,
+                    "letter": "E"
+                  }
+                ],
+                "wrong_position": [
+                  {
+                    "position": 0,
+                    "letter": "A"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 1,
+                    "letter": "R"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "O"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "S"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "AROSE",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 4,
+                      "letter": "E"
+                    }
+                  ],
+                  "wrong_position": [
+                    {
+                      "position": 0,
+                      "letter": "A"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 1,
+                      "letter": "R"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "O"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "S"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 1,
+                "targetWord": null
+              },
+              "rawResponse": "AROSE",
+              "timestamp": "2025-08-31T16:09:26.181Z"
+            },
+            {
+              "word": "WHEAT",
+              "result": {
+                "correct": [],
+                "wrong_position": [
+                  {
+                    "position": 2,
+                    "letter": "E"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "A"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 0,
+                    "letter": "W"
+                  },
+                  {
+                    "position": 1,
+                    "letter": "H"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "T"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "WHEAT",
+                "result": {
+                  "correct": [],
+                  "wrong_position": [
+                    {
+                      "position": 2,
+                      "letter": "E"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "A"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 0,
+                      "letter": "W"
+                    },
+                    {
+                      "position": 1,
+                      "letter": "H"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "T"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 2,
+                "targetWord": null
+              },
+              "rawResponse": "WHEAT",
+              "timestamp": "2025-08-31T16:09:27.521Z"
+            },
+            {
+              "word": "BLADE",
+              "result": {
+                "correct": [
+                  {
+                    "position": 4,
+                    "letter": "E"
+                  }
+                ],
+                "wrong_position": [
+                  {
+                    "position": 0,
+                    "letter": "B"
+                  },
+                  {
+                    "position": 1,
+                    "letter": "L"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "A"
+                  }
+                ],
+                "not_in_word": [
+                  {
+                    "position": 3,
+                    "letter": "D"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "BLADE",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 4,
+                      "letter": "E"
+                    }
+                  ],
+                  "wrong_position": [
+                    {
+                      "position": 0,
+                      "letter": "B"
+                    },
+                    {
+                      "position": 1,
+                      "letter": "L"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "A"
+                    }
+                  ],
+                  "not_in_word": [
+                    {
+                      "position": 3,
+                      "letter": "D"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 3,
+                "targetWord": null
+              },
+              "rawResponse": "BLADE",
+              "timestamp": "2025-08-31T16:09:29.023Z"
+            },
+            {
+              "word": "CABLE",
+              "result": {
+                "correct": [
+                  {
+                    "position": 0,
+                    "letter": "C"
+                  },
+                  {
+                    "position": 1,
+                    "letter": "A"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "B"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "L"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "E"
+                  }
+                ],
+                "wrong_position": [],
+                "not_in_word": []
+              },
+              "feedback": {
+                "word": "CABLE",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 0,
+                      "letter": "C"
+                    },
+                    {
+                      "position": 1,
+                      "letter": "A"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "B"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "L"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "E"
+                    }
+                  ],
+                  "wrong_position": [],
+                  "not_in_word": []
+                },
+                "gameOver": true,
+                "won": true,
+                "guessNumber": 4,
+                "targetWord": "CABLE"
+              },
+              "rawResponse": "CABLE",
+              "timestamp": "2025-08-31T16:09:30.386Z"
+            }
+          ],
+          "won": true,
+          "guessCount": 4,
+          "error": null
+        },
+        {
+          "model": "anthropic/claude-sonnet-4",
+          "targetWord": "GUIDE",
+          "guesses": [
+            {
+              "word": "AROSE",
+              "result": {
+                "correct": [
+                  {
+                    "position": 4,
+                    "letter": "E"
+                  }
+                ],
+                "wrong_position": [],
+                "not_in_word": [
+                  {
+                    "position": 0,
+                    "letter": "A"
+                  },
+                  {
+                    "position": 1,
+                    "letter": "R"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "O"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "S"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "AROSE",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 4,
+                      "letter": "E"
+                    }
+                  ],
+                  "wrong_position": [],
+                  "not_in_word": [
+                    {
+                      "position": 0,
+                      "letter": "A"
+                    },
+                    {
+                      "position": 1,
+                      "letter": "R"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "O"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "S"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 1,
+                "targetWord": null
+              },
+              "rawResponse": "AROSE",
+              "timestamp": "2025-08-31T16:09:31.638Z"
+            },
+            {
+              "word": "CHIME",
+              "result": {
+                "correct": [
+                  {
+                    "position": 2,
+                    "letter": "I"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "E"
+                  }
+                ],
+                "wrong_position": [],
+                "not_in_word": [
+                  {
+                    "position": 0,
+                    "letter": "C"
+                  },
+                  {
+                    "position": 1,
+                    "letter": "H"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "M"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "CHIME",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 2,
+                      "letter": "I"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "E"
+                    }
+                  ],
+                  "wrong_position": [],
+                  "not_in_word": [
+                    {
+                      "position": 0,
+                      "letter": "C"
+                    },
+                    {
+                      "position": 1,
+                      "letter": "H"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "M"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 2,
+                "targetWord": null
+              },
+              "rawResponse": "CHIME",
+              "timestamp": "2025-08-31T16:09:33.225Z"
+            },
+            {
+              "word": "KNIFE",
+              "result": {
+                "correct": [
+                  {
+                    "position": 2,
+                    "letter": "I"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "E"
+                  }
+                ],
+                "wrong_position": [],
+                "not_in_word": [
+                  {
+                    "position": 0,
+                    "letter": "K"
+                  },
+                  {
+                    "position": 1,
+                    "letter": "N"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "F"
+                  }
+                ]
+              },
+              "feedback": {
+                "word": "KNIFE",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 2,
+                      "letter": "I"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "E"
+                    }
+                  ],
+                  "wrong_position": [],
+                  "not_in_word": [
+                    {
+                      "position": 0,
+                      "letter": "K"
+                    },
+                    {
+                      "position": 1,
+                      "letter": "N"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "F"
+                    }
+                  ]
+                },
+                "gameOver": false,
+                "won": false,
+                "guessNumber": 3,
+                "targetWord": null
+              },
+              "rawResponse": "KNIFE",
+              "timestamp": "2025-08-31T16:09:34.719Z"
+            },
+            {
+              "word": "GUIDE",
+              "result": {
+                "correct": [
+                  {
+                    "position": 0,
+                    "letter": "G"
+                  },
+                  {
+                    "position": 1,
+                    "letter": "U"
+                  },
+                  {
+                    "position": 2,
+                    "letter": "I"
+                  },
+                  {
+                    "position": 3,
+                    "letter": "D"
+                  },
+                  {
+                    "position": 4,
+                    "letter": "E"
+                  }
+                ],
+                "wrong_position": [],
+                "not_in_word": []
+              },
+              "feedback": {
+                "word": "GUIDE",
+                "result": {
+                  "correct": [
+                    {
+                      "position": 0,
+                      "letter": "G"
+                    },
+                    {
+                      "position": 1,
+                      "letter": "U"
+                    },
+                    {
+                      "position": 2,
+                      "letter": "I"
+                    },
+                    {
+                      "position": 3,
+                      "letter": "D"
+                    },
+                    {
+                      "position": 4,
+                      "letter": "E"
+                    }
+                  ],
+                  "wrong_position": [],
+                  "not_in_word": []
+                },
+                "gameOver": true,
+                "won": true,
+                "guessNumber": 4,
+                "targetWord": "GUIDE"
+              },
+              "rawResponse": "GUIDE",
+              "timestamp": "2025-08-31T16:09:36.239Z"
+            }
+          ],
+          "won": true,
+          "guessCount": 4,
+          "error": null
+        }
+      ],
+      "stats": {
+        "wins": 7,
+        "losses": 2,
+        "averageGuesses": 4.428571428571429,
+        "errors": 1,
+        "winRate": 77.77777777777779,
+        "guessDistribution": {
+          "1": 0,
+          "2": 0,
+          "3": 1,
+          "4": 3,
+          "5": 2,
+          "6": 1
+        }
+      }
+    }
+  }
+}
