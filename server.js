@@ -216,10 +216,10 @@ function generateHTML() {
         
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
             min-height: 100vh;
             padding: 20px;
-            color: #e5e5e5;
+            color: #f1f5f9;
             overflow-x: hidden;
         }
         
@@ -231,9 +231,8 @@ function generateHTML() {
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+                radial-gradient(circle at 20% 80%, rgba(71, 85, 105, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(100, 116, 139, 0.08) 0%, transparent 50%);
             pointer-events: none;
             z-index: -1;
         }
@@ -241,12 +240,12 @@ function generateHTML() {
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: rgba(22, 27, 34, 0.95);
-            border: 1px solid rgba(56, 67, 85, 0.3);
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(71, 85, 105, 0.2);
             border-radius: 20px;
             box-shadow: 
-                0 20px 40px rgba(0,0,0,0.4),
-                0 0 0 1px rgba(255,255,255,0.05) inset;
+                0 25px 50px rgba(0,0,0,0.6),
+                0 0 0 1px rgba(241, 245, 249, 0.03) inset;
             backdrop-filter: blur(20px);
             overflow: hidden;
             position: relative;
@@ -259,79 +258,78 @@ function generateHTML() {
             left: 0;
             right: 0;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(120, 119, 198, 0.8), transparent);
+            background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.3), transparent);
         }
         
         .header {
-            background: linear-gradient(135deg, rgba(120, 119, 198, 0.15) 0%, rgba(255, 119, 198, 0.1) 100%);
-            border-bottom: 1px solid rgba(56, 67, 85, 0.3);
-            color: #ffffff;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.9) 50%, rgba(51, 65, 85, 0.8) 100%);
+            border-bottom: 1px solid rgba(71, 85, 105, 0.3);
+            color: #f8fafc;
             padding: 40px 30px;
             text-align: center;
             position: relative;
+            overflow: hidden;
         }
-        
+
         .header::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-            opacity: 0.5;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 40%, rgba(148, 163, 184, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 60%, rgba(100, 116, 139, 0.08) 0%, transparent 50%);
+            animation: subtle-float 20s ease-in-out infinite;
         }
-        
+
+        @keyframes subtle-float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
+        }
+
         .header h1 {
-            font-size: 3em;
-            font-weight: 700;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, #ffffff 0%, #a8a8ff 100%);
+            font-size: 2.8em;
+            font-weight: 300;
+            margin: 0;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             position: relative;
-            z-index: 1;
+            z-index: 2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        
-        .header p {
-            font-size: 1.3em;
-            opacity: 0.85;
+
+        .header .subtitle {
+            font-size: 1.1em;
+            opacity: 0.7;
             font-weight: 400;
+            margin-top: 8px;
             position: relative;
-            z-index: 1;
+            z-index: 2;
+            color: #cbd5e1;
         }
-        
-        .controls {
-            padding: 25px;
-            background: rgba(13, 17, 23, 0.8);
-            border-bottom: 1px solid rgba(56, 67, 85, 0.3);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            backdrop-filter: blur(10px);
-        }
-        
-        .control-group {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .control-group label {
-            color: #d1d5db;
+
+        .header .stats {
+            font-size: 0.85em;
+            opacity: 0.6;
+            margin-top: 20px;
+            position: relative;
+            z-index: 2;
+            color: #94a3b8;
             font-weight: 500;
-            font-size: 14px;
         }
+        
+
         
         .btn {
-            background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
-            color: white;
-            border: 1px solid rgba(168, 85, 247, 0.3);
+            background: linear-gradient(135deg, #475569 0%, #64748b 100%);
+            color: #f8fafc;
+            border: 1px solid rgba(100, 116, 139, 0.4);
             padding: 12px 24px;
-            border-radius: 12px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 14px;
             font-weight: 500;
@@ -359,32 +357,34 @@ function generateHTML() {
         
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
+            box-shadow: 0 8px 25px rgba(71, 85, 105, 0.4);
+            background: linear-gradient(135deg, #334155 0%, #475569 100%);
         }
         
         .btn:disabled {
-            background: rgba(55, 65, 81, 0.5);
-            border-color: rgba(75, 85, 99, 0.3);
+            background: rgba(71, 85, 105, 0.3);
+            border-color: rgba(100, 116, 139, 0.2);
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
+            color: #94a3b8;
         }
         
         .input {
             padding: 12px 16px;
-            border: 1px solid rgba(75, 85, 99, 0.3);
-            border-radius: 12px;
+            border: 1px solid rgba(100, 116, 139, 0.3);
+            border-radius: 8px;
             font-size: 14px;
-            background: rgba(31, 41, 55, 0.8);
-            color: #e5e5e5;
+            background: rgba(30, 41, 59, 0.8);
+            color: #f1f5f9;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
         }
         
         .input:focus {
             outline: none;
-            border-color: rgba(168, 85, 247, 0.6);
-            box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
+            border-color: rgba(148, 163, 184, 0.6);
+            box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.1);
         }
         
         .status {
@@ -439,7 +439,7 @@ function generateHTML() {
         
         .leaderboard {
             padding: 30px;
-            background: rgba(13, 17, 23, 0.4);
+            background: rgba(15, 23, 42, 0.6);
             backdrop-filter: blur(10px);
         }
         
@@ -447,43 +447,43 @@ function generateHTML() {
             width: 100%;
             border-collapse: collapse;
             margin-top: 25px;
-            border-radius: 16px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
         }
         
         .leaderboard-table th,
         .leaderboard-table td {
             padding: 18px;
             text-align: left;
-            border-bottom: 1px solid rgba(56, 67, 85, 0.3);
+            border-bottom: 1px solid rgba(71, 85, 105, 0.3);
         }
         
         .leaderboard-table th {
-            background: rgba(31, 41, 55, 0.8);
+            background: rgba(30, 41, 59, 0.95);
             font-weight: 600;
-            color: #a3a3a3;
+            color: #94a3b8;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-size: 13px;
+            letter-spacing: 0.8px;
+            font-size: 12px;
             backdrop-filter: blur(10px);
         }
         
         .leaderboard-table tbody tr {
-            background: rgba(22, 27, 34, 0.6);
+            background: rgba(15, 23, 42, 0.7);
             transition: all 0.3s ease;
         }
         
         .leaderboard-table tbody tr:hover {
-            background: rgba(31, 41, 55, 0.8);
-            transform: scale(1.01);
-            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.15);
+            background: rgba(30, 41, 59, 0.9);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(71, 85, 105, 0.25);
         }
         
         .rank {
             font-weight: 700;
             font-size: 1.3em;
-            background: linear-gradient(135deg, #a855f7, #ec4899);
+            background: linear-gradient(135deg, #e2e8f0, #94a3b8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -492,7 +492,7 @@ function generateHTML() {
         
         .model-name {
             font-weight: 600;
-            color: #f3f4f6;
+            color: #f1f5f9;
             font-size: 15px;
         }
         
@@ -504,7 +504,7 @@ function generateHTML() {
         }
         
         .stats {
-            color: #9ca3af;
+            color: #94a3b8;
             font-size: 0.9em;
         }
         
@@ -515,7 +515,7 @@ function generateHTML() {
         }
         
         .guess-bar {
-            background: rgba(55, 65, 81, 0.5);
+            background: rgba(71, 85, 105, 0.4);
             height: 18px;
             border-radius: 4px;
             min-width: 22px;
@@ -523,16 +523,16 @@ function generateHTML() {
             align-items: center;
             justify-content: center;
             font-size: 11px;
-            color: #6b7280;
-            border: 1px solid rgba(75, 85, 99, 0.2);
+            color: #64748b;
+            border: 1px solid rgba(100, 116, 139, 0.2);
             transition: all 0.3s ease;
         }
         
         .guess-bar.has-data {
-            background: linear-gradient(90deg, #7c3aed, #a855f7);
-            color: white;
-            border-color: rgba(168, 85, 247, 0.4);
-            box-shadow: 0 0 8px rgba(168, 85, 247, 0.3);
+            background: linear-gradient(90deg, #475569, #64748b);
+            color: #f8fafc;
+            border-color: rgba(100, 116, 139, 0.5);
+            box-shadow: 0 0 8px rgba(71, 85, 105, 0.4);
             transform: scale(1.05);
         }
         
@@ -546,22 +546,22 @@ function generateHTML() {
         .loading {
             text-align: center;
             padding: 60px;
-            color: #9ca3af;
-            background: rgba(13, 17, 23, 0.6);
+            color: #94a3b8;
+            background: rgba(15, 23, 42, 0.7);
             backdrop-filter: blur(10px);
-            border-radius: 16px;
+            border-radius: 12px;
             margin: 20px;
         }
         
         .spinner {
-            border: 4px solid rgba(55, 65, 81, 0.3);
-            border-top: 4px solid #a855f7;
+            border: 4px solid rgba(71, 85, 105, 0.3);
+            border-top: 4px solid #64748b;
             border-radius: 50%;
             width: 50px;
             height: 50px;
             animation: spin 1s linear infinite;
             margin: 0 auto 25px;
-            box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+            box-shadow: 0 0 20px rgba(71, 85, 105, 0.4);
         }
         
         @keyframes spin {
@@ -571,11 +571,11 @@ function generateHTML() {
         
         .last-updated {
             text-align: center;
-            color: #6b7280;
+            color: #64748b;
             font-size: 0.9em;
             padding: 25px;
-            border-top: 1px solid rgba(56, 67, 85, 0.3);
-            background: rgba(13, 17, 23, 0.6);
+            border-top: 1px solid rgba(71, 85, 105, 0.3);
+            background: rgba(15, 23, 42, 0.7);
             backdrop-filter: blur(10px);
         }
         
@@ -654,19 +654,19 @@ function generateHTML() {
             }
             
             .mobile-card {
-                background: rgba(22, 27, 34, 0.8);
-                border: 1px solid rgba(56, 67, 85, 0.3);
+                background: rgba(15, 23, 42, 0.9);
+                border: 1px solid rgba(71, 85, 105, 0.3);
                 border-radius: 12px;
                 margin-bottom: 15px;
                 padding: 20px;
                 transition: all 0.3s ease;
-                border-left: 4px solid #a855f7;
+                border-left: 4px solid #64748b;
             }
             
             .mobile-card:hover {
-                background: rgba(31, 41, 55, 0.9);
+                background: rgba(30, 41, 59, 0.95);
                 transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(168, 85, 247, 0.2);
+                box-shadow: 0 6px 20px rgba(71, 85, 105, 0.3);
             }
             
             .mobile-card-header {
@@ -679,7 +679,7 @@ function generateHTML() {
             .mobile-rank {
                 font-size: 1.8em;
                 font-weight: 700;
-                background: linear-gradient(135deg, #a855f7, #ec4899);
+                background: linear-gradient(135deg, #e2e8f0, #94a3b8);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
@@ -689,7 +689,7 @@ function generateHTML() {
             .mobile-model {
                 font-size: 1.1em;
                 font-weight: 600;
-                color: #f3f4f6;
+                color: #f1f5f9;
                 flex: 1;
                 margin: 0 15px;
                 text-align: left;
@@ -712,14 +712,14 @@ function generateHTML() {
             .mobile-stat {
                 text-align: center;
                 padding: 10px;
-                background: rgba(31, 41, 55, 0.5);
+                background: rgba(30, 41, 59, 0.6);
                 border-radius: 8px;
-                border: 1px solid rgba(75, 85, 99, 0.3);
+                border: 1px solid rgba(100, 116, 139, 0.3);
             }
             
             .mobile-stat-label {
                 font-size: 0.8em;
-                color: #9ca3af;
+                color: #94a3b8;
                 text-transform: uppercase;
                 letter-spacing: 0.5px;
                 margin-bottom: 5px;
@@ -728,7 +728,7 @@ function generateHTML() {
             .mobile-stat-value {
                 font-size: 1.1em;
                 font-weight: 600;
-                color: #e5e5e5;
+                color: #f1f5f9;
             }
             
             .mobile-distribution {
@@ -737,7 +737,7 @@ function generateHTML() {
             
             .mobile-distribution-label {
                 font-size: 0.8em;
-                color: #9ca3af;
+                color: #94a3b8;
                 margin-bottom: 8px;
                 text-transform: uppercase;
                 letter-spacing: 0.5px;
@@ -751,7 +751,7 @@ function generateHTML() {
             
             .mobile-guess-bar {
                 flex: 1;
-                background: rgba(55, 65, 81, 0.5);
+                background: rgba(71, 85, 105, 0.5);
                 height: 32px;
                 border-radius: 6px;
                 display: flex;
@@ -759,16 +759,16 @@ function generateHTML() {
                 align-items: center;
                 justify-content: center;
                 font-size: 10px;
-                color: #6b7280;
-                border: 1px solid rgba(75, 85, 99, 0.2);
+                color: #64748b;
+                border: 1px solid rgba(100, 116, 139, 0.2);
                 transition: all 0.3s ease;
             }
             
             .mobile-guess-bar.has-data {
-                background: linear-gradient(135deg, #7c3aed, #a855f7);
-                color: white;
-                border-color: rgba(168, 85, 247, 0.4);
-                box-shadow: 0 0 8px rgba(168, 85, 247, 0.3);
+                background: linear-gradient(135deg, #475569, #64748b);
+                color: #f8fafc;
+                border-color: rgba(100, 116, 139, 0.5);
+                box-shadow: 0 0 8px rgba(71, 85, 105, 0.4);
                 transform: scale(1.05);
             }
             
@@ -785,9 +785,9 @@ function generateHTML() {
         }
         
         .view-games-btn {
-            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
-            color: white;
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            background: linear-gradient(135deg, #334155 0%, #475569 100%);
+            color: #f1f5f9;
+            border: 1px solid rgba(71, 85, 105, 0.4);
             padding: 6px 12px;
             border-radius: 6px;
             cursor: pointer;
@@ -800,9 +800,9 @@ function generateHTML() {
         }
         
         .view-games-btn:hover {
-            background: linear-gradient(135deg, #047857 0%, #059669 100%);
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 4px 12px rgba(71, 85, 105, 0.4);
         }
         
         .mobile-view-btn {
@@ -825,34 +825,34 @@ function generateHTML() {
         }
         
         .modal-content {
-            background: linear-gradient(135deg, rgba(22, 27, 34, 0.98) 0%, rgba(31, 41, 55, 0.98) 100%);
-            border: 1px solid rgba(56, 67, 85, 0.3);
-            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 41, 59, 0.98) 100%);
+            border: 1px solid rgba(71, 85, 105, 0.3);
+            border-radius: 12px;
             margin: 5% auto;
             padding: 0;
             width: 95%;
             max-width: 800px;
             max-height: 85vh;
             overflow-y: auto;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
             backdrop-filter: blur(20px);
         }
         
         .modal-header {
-            background: linear-gradient(135deg, rgba(120, 119, 198, 0.15) 0%, rgba(255, 119, 198, 0.1) 100%);
-            border-bottom: 1px solid rgba(56, 67, 85, 0.3);
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.7) 100%);
+            border-bottom: 1px solid rgba(71, 85, 105, 0.3);
             padding: 20px;
-            border-radius: 16px 16px 0 0;
+            border-radius: 12px 12px 0 0;
         }
         
         .modal-header h2 {
             margin: 0;
-            color: #f3f4f6;
+            color: #f1f5f9;
             font-size: 1.5em;
         }
         
         .close {
-            color: #aaa;
+            color: #94a3b8;
             float: right;
             font-size: 28px;
             font-weight: bold;
@@ -861,7 +861,7 @@ function generateHTML() {
         }
         
         .close:hover {
-            color: #fff;
+            color: #f1f5f9;
         }
         
         .modal-body {
@@ -869,8 +869,8 @@ function generateHTML() {
         }
         
         .game-card {
-            background: rgba(31, 41, 55, 0.6);
-            border: 1px solid rgba(75, 85, 99, 0.3);
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(100, 116, 139, 0.3);
             border-radius: 8px;
             margin-bottom: 15px;
             padding: 15px;
@@ -879,10 +879,10 @@ function generateHTML() {
         }
         
         .game-card:hover {
-            background: rgba(55, 65, 81, 0.8);
-            border-color: rgba(168, 85, 247, 0.4);
+            background: rgba(51, 65, 85, 0.8);
+            border-color: rgba(148, 163, 184, 0.4);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(168, 85, 247, 0.15);
+            box-shadow: 0 6px 20px rgba(71, 85, 105, 0.25);
         }
         
         .game-header {
@@ -894,7 +894,7 @@ function generateHTML() {
         
         .game-number {
             font-weight: 600;
-            color: #a855f7;
+            color: #cbd5e1;
         }
         
         .game-result {
@@ -928,7 +928,7 @@ function generateHTML() {
             grid-template-columns: 1fr 1fr;
             gap: 10px;
             font-size: 14px;
-            color: #9ca3af;
+            color: #94a3b8;
         }
         
         .game-detail-item {
@@ -940,7 +940,7 @@ function generateHTML() {
             display: none;
             margin-top: 15px;
             padding-top: 15px;
-            border-top: 1px solid rgba(75, 85, 99, 0.3);
+            border-top: 1px solid rgba(100, 116, 139, 0.3);
         }
         
         .guess-item {
@@ -948,15 +948,15 @@ function generateHTML() {
             align-items: center;
             margin-bottom: 8px;
             padding: 8px;
-            background: rgba(13, 17, 23, 0.6);
+            background: rgba(15, 23, 42, 0.7);
             border-radius: 6px;
-            border: 1px solid rgba(55, 65, 81, 0.3);
+            border: 1px solid rgba(71, 85, 105, 0.3);
         }
         
         .guess-number {
             width: 30px;
             font-weight: 600;
-            color: #6b7280;
+            color: #64748b;
         }
         
         .guess-word {
@@ -964,7 +964,7 @@ function generateHTML() {
             font-weight: 700;
             font-size: 16px;
             margin: 0 15px;
-            color: #f3f4f6;
+            color: #f1f5f9;
         }
         
         .guess-feedback {
@@ -1019,24 +1019,12 @@ function generateHTML() {
 <body>
     <div class="container">
         <div class="header">
-            <h1>🧠 LLM Wordle Arena</h1>
-            <p>Performance leaderboard for Large Language Models playing Wordle</p>
-            <div style="margin-top: 15px; font-size: 0.9em; color: #9ca3af;">
-                ✅ <strong>Latest Results:</strong> 100 games per model across 9 premium LLMs (900 total games)
-            </div>
+            <h1>Wordle Arena</h1>
+            <div class="subtitle">LLM Performance Benchmark</div>
+            <div class="stats">900 games • 9 models • Live results</div>
         </div>
         
-        <div class="controls">
-            <div class="control-group">
-                <label for="rounds">Rounds per model:</label>
-                <input type="number" id="rounds" class="input" value="10" min="1" max="100">
-                <button id="startBtn" class="btn">Start Arena</button>
-            </div>
-            <div class="control-group">
-                <button id="refreshBtn" class="btn">Refresh Results</button>
-            </div>
-        </div>
-        
+
         <div id="status" class="status" style="display: none;"></div>
         
         <div class="leaderboard">
@@ -1099,7 +1087,7 @@ function generateHTML() {
                 const data = await response.json();
                 
                 if (data.error) {
-                    document.getElementById('loading').innerHTML = '<div style="color: #c62828;"><h3>No Results Available</h3><p>Start an arena competition to see the leaderboard!</p></div>';
+                    document.getElementById('loading').innerHTML = '<div style="color: #ef4444;"><h3>No Results Available</h3><p>Start an arena competition to see the leaderboard!</p></div>';
                     return;
                 }
                 
@@ -1155,7 +1143,7 @@ function generateHTML() {
                 
             } catch (error) {
                 console.error('Error loading leaderboard:', error);
-                document.getElementById('loading').innerHTML = '<div style="color: #c62828;"><h3>Error Loading Leaderboard</h3><p>Please try refreshing the page.</p></div>';
+                document.getElementById('loading').innerHTML = '<div style="color: #ef4444;"><h3>Error Loading Leaderboard</h3><p>Please try refreshing the page.</p></div>';
             }
         };
         
@@ -1163,15 +1151,14 @@ function generateHTML() {
             const statusDiv = document.getElementById('status');
             const percentage = progress.total > 0 ? (progress.completed / progress.total) * 100 : 0;
             
-            statusDiv.innerHTML = '<div><strong>Arena Running...</strong></div><div>Current: ' + (progress.currentModel || 'Initializing...') + '</div><div class="progress"><div class="progress-bar" style="width: ' + percentage + '%">' + progress.completed + '/' + progress.total + ' (' + percentage.toFixed(1) + '%)</div></div>' + (progress.error ? '<div style="color: #c62828; margin-top: 10px;">Error: ' + progress.error + '</div>' : '');
+            statusDiv.innerHTML = '<div><strong>Arena Running...</strong></div><div>Current: ' + (progress.currentModel || 'Initializing...') + '</div><div class="progress"><div class="progress-bar" style="width: ' + percentage + '%">' + progress.completed + '/' + progress.total + ' (' + percentage.toFixed(1) + '%)</div></div>' + (progress.error ? '<div style="color: #ef4444; margin-top: 10px;">Error: ' + progress.error + '</div>' : '');
             statusDiv.style.display = 'block';
             
-            document.getElementById('startBtn').disabled = true;
+
         };
         
         const hideProgress = () => {
             document.getElementById('status').style.display = 'none';
-            document.getElementById('startBtn').disabled = false;
         };
         
         const startArena = async () => {
@@ -1203,8 +1190,7 @@ function generateHTML() {
             }
         };
         
-        document.getElementById('startBtn').addEventListener('click', startArena);
-        document.getElementById('refreshBtn').addEventListener('click', loadLeaderboard);
+
         
         const modal = document.getElementById('gamesModal');
         const closeBtn = document.getElementsByClassName('close')[0];
@@ -1230,7 +1216,7 @@ function generateHTML() {
                 const data = await response.json();
                 
                 if (data.error) {
-                    document.getElementById('modalBody').innerHTML = '<div style="color: #c62828; text-align: center; padding: 40px;"><h3>Error Loading Games</h3><p>' + data.error + '</p></div>';
+                    document.getElementById('modalBody').innerHTML = '<div style="color: #ef4444; text-align: center; padding: 40px;"><h3>Error Loading Games</h3><p>' + data.error + '</p></div>';
                     return;
                 }
                 
@@ -1258,11 +1244,11 @@ function generateHTML() {
                     return '<div class="game-card" onclick="toggleGuesses(this)"><div class="game-header"><div class="game-number">Game #' + game.gameNumber + '</div><div class="game-result ' + resultClass + '">' + resultText + '</div></div><div class="game-details"><div class="game-detail-item"><span>Target Word:</span><span style="font-family: monospace; font-weight: bold;">' + game.targetWord + '</span></div><div class="game-detail-item"><span>Guesses:</span><span>' + game.guesses.length + '/6</span></div></div><div class="guess-sequence">' + guessesHtml + '</div></div>';
                 }).join('');
                 
-                document.getElementById('modalBody').innerHTML = '<div style="margin-bottom: 20px; text-align: center; color: #9ca3af;">Click on any game to see the guess sequence</div>' + gamesHtml;
+                document.getElementById('modalBody').innerHTML = '<div style="margin-bottom: 20px; text-align: center; color: #94a3b8;">Click on any game to see the guess sequence</div>' + gamesHtml;
                 
             } catch (error) {
                 console.error('Error loading games:', error);
-                document.getElementById('modalBody').innerHTML = '<div style="color: #c62828; text-align: center; padding: 40px;"><h3>Error Loading Games</h3><p>Please try again later.</p></div>';
+                document.getElementById('modalBody').innerHTML = '<div style="color: #ef4444; text-align: center; padding: 40px;"><h3>Error Loading Games</h3><p>Please try again later.</p></div>';
             }
         };
         
