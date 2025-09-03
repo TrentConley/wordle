@@ -9,7 +9,8 @@ let gameState = {
   llmGuesses: [],
   guessesRemaining: 6,
   paintedHumanRows: 0,
-  paintedLlmRows: 0
+  paintedLlmRows: 0,
+  lastLlmErrorShownAt: null
 };
 
 const statusEl = document.getElementById('status');
@@ -163,6 +164,18 @@ async function fetchState(){
     if(gameState.currentGuess.length > 0){
       updateTileDisplay();
     }
+
+    // Surface LLM errors, if any
+    const lastLlmEntry = gameState.llmGuesses[gameState.llmGuesses.length - 1];
+    if(lastLlmEntry && lastLlmEntry.error){
+      const lastTs = lastLlmEntry.timestamp || String(gameState.llmGuesses.length);
+      if(gameState.lastLlmErrorShownAt !== lastTs){
+        llmMessage.textContent = `LLM error: ${lastLlmEntry.error}. Try a different model.`;
+        gameState.lastLlmErrorShownAt = lastTs;
+      }
+    } else if (!lastLlmEntry) {
+      llmMessage.textContent = '';
+    }
     
     // Update status
     if(gameState.over){
@@ -227,7 +240,8 @@ async function startGame(){
       llmGuesses: [],
       guessesRemaining: 6,
       paintedHumanRows: 0,
-      paintedLlmRows: 0
+      paintedLlmRows: 0,
+      lastLlmErrorShownAt: null
     };
     
     statusEl.textContent = `Game #${gameId} started`;
@@ -364,4 +378,3 @@ setInterval(() => {
     fetchState();
   }
 }, 2500);
-

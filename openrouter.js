@@ -9,6 +9,7 @@ export class OpenRouterClient {
   constructor() {
     this.apiKey = process.env.OPENROUTER_API_KEY;
     this.baseURL = 'https://openrouter.ai/api/v1';
+    this.siteUrl = process.env.SITE_URL || process.env.OPENROUTER_SITE_URL || 'https://wordle.trentconley.com';
     
     if (!this.apiKey) {
       throw new Error('OPENROUTER_API_KEY environment variable is required');
@@ -41,7 +42,7 @@ export class OpenRouterClient {
           headers: {
             'Authorization': `Bearer ${this.apiKey}`,
             'Content-Type': 'application/json',
-            'HTTP-Referer': 'http://localhost:8080',
+            'HTTP-Referer': this.siteUrl,
             'X-Title': 'LLM Wordle Arena'
           }
         }

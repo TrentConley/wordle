@@ -105,6 +105,11 @@ app.post('/api/pvp/start', (req, res) => {
       targetWord: game.targetWord
     };
     pvpGames.set(id, record);
+    // Kick off the LLM's first guess in the background so both players start
+    triggerLlmGuess(record).catch(err => {
+      appendFileSync('arena-errors.log', `${new Date().toISOString()} - PVP_LLM_GUESS_ERROR: ${err.message}\n`);
+    });
+
     res.json({ id, model, guessesRemaining: game.maxGuesses, createdAt: record.createdAt });
   } catch (e) {
     res.status(500).json({ error: 'Failed to start game' });

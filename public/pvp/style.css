@@ -261,6 +261,8 @@ header h1 {
     transition: all 0.2s ease;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    text-decoration: none; /* ensure links styled as buttons */
+    display: inline-block;
 }
 
 .new-game-btn:hover {
