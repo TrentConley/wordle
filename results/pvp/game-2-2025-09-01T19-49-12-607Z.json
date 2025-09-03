@@ -1,0 +1,200 @@
+{
+  "id": "2",
+  "model": "openai/gpt-5-chat",
+  "createdAt": "2025-09-01T19:47:02.729Z",
+  "targetWord": "LINKS",
+  "humanGuesses": [
+    {
+      "word": "SHINE",
+      "result": {
+        "correct": [],
+        "wrong_position": [
+          {
+            "position": 0,
+            "letter": "S"
+          },
+          {
+            "position": 2,
+            "letter": "I"
+          },
+          {
+            "position": 3,
+            "letter": "N"
+          }
+        ],
+        "not_in_word": [
+          {
+            "position": 1,
+            "letter": "H"
+          },
+          {
+            "position": 4,
+            "letter": "E"
+          }
+        ]
+      },
+      "timestamp": "2025-09-01T19:47:05.746Z"
+    },
+    {
+      "word": "NICOS",
+      "result": {
+        "correct": [
+          {
+            "position": 1,
+            "letter": "I"
+          },
+          {
+            "position": 4,
+            "letter": "S"
+          }
+        ],
+        "wrong_position": [
+          {
+            "position": 0,
+            "letter": "N"
+          }
+        ],
+        "not_in_word": [
+          {
+            "position": 2,
+            "letter": "C"
+          },
+          {
+            "position": 3,
+            "letter": "O"
+          }
+        ]
+      },
+      "timestamp": "2025-09-01T19:47:35.857Z"
+    },
+    {
+      "word": "TINAS",
+      "result": {
+        "correct": [
+          {
+            "position": 1,
+            "letter": "I"
+          },
+          {
+            "position": 2,
+            "letter": "N"
+          },
+          {
+            "position": 4,
+            "letter": "S"
+          }
+        ],
+        "wrong_position": [],
+        "not_in_word": [
+          {
+            "position": 0,
+            "letter": "T"
+          },
+          {
+            "position": 3,
+            "letter": "A"
+          }
+        ]
+      },
+      "timestamp": "2025-09-01T19:49:11.924Z"
+    }
+  ],
+  "llmGuesses": [
+    {
+      "word": "SNIPS",
+      "result": {
+        "correct": [
+          {
+            "position": 4,
+            "letter": "S"
+          }
+        ],
+        "wrong_position": [
+          {
+            "position": 1,
+            "letter": "N"
+          },
+          {
+            "position": 2,
+            "letter": "I"
+          }
+        ],
+        "not_in_word": [
+          {
+            "position": 0,
+            "letter": "S"
+          },
+          {
+            "position": 3,
+            "letter": "P"
+          }
+        ]
+      },
+      "timestamp": "2025-09-01T19:47:06.635Z"
+    },
+    {
+      "word": "MINUS",
+      "result": {
+        "correct": [
+          {
+            "position": 1,
+            "letter": "I"
+          },
+          {
+            "position": 2,
+            "letter": "N"
+          },
+          {
+            "position": 4,
+            "letter": "S"
+          }
+        ],
+        "wrong_position": [],
+        "not_in_word": [
+          {
+            "position": 0,
+            "letter": "M"
+          },
+          {
+            "position": 3,
+            "letter": "U"
+          }
+        ]
+      },
+      "timestamp": "2025-09-01T19:47:36.508Z"
+    },
+    {
+      "word": "FINDS",
+      "result": {
+        "correct": [
+          {
+            "position": 1,
+            "letter": "I"
+          },
+          {
+            "position": 2,
+            "letter": "N"
+          },
+          {
+            "position": 4,
+            "letter": "S"
+          }
+        ],
+        "wrong_position": [],
+        "not_in_word": [
+          {
+            "position": 0,
+            "letter": "F"
+          },
+          {
+            "position": 3,
+            "letter": "D"
+          }
+        ]
+      },
+      "timestamp": "2025-09-01T19:49:12.607Z"
+    }
+  ],
+  "over": true,
+  "wonBy": "none"
+}

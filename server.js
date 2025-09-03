@@ -1,9 +1,11 @@
 import express from 'express';
 import cors from 'cors';
-import { readFileSync, readdirSync, existsSync } from 'fs';
+import { readFileSync, readdirSync, existsSync, writeFileSync, mkdirSync, appendFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { WordleArena } from './arena.js';
+import { WordleGame } from './wordle.js';
+import { OpenRouterClient } from './openrouter.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -16,6 +18,16 @@ app.use(express.static('public'));
 let currentArena = null;
 let isRunning = false;
 let currentProgress = { total: 0, completed: 0, currentModel: '' };
+
+// --- Simple in-memory PvP store ---
+const pvpGames = new Map(); // gameId -> { game: WordleGame, id, createdAt, model, humanGuesses: [], llmGuesses: [], over, wonBy, targetWord }
+let nextGameId = 1;
+
+// Ensure results/pvp directory exists for logs
+try {
+  mkdirSync('results', { recursive: true });
+  mkdirSync('results/pvp', { recursive: true });
+} catch {}
 
 const getLatestResults = () => {
   try {
@@ -72,6 +84,140 @@ app.get('/api/leaderboard', (req, res) => {
     isRunning,
     progress: currentProgress
   });
+});
+
+// --- PvP (Human vs LLM) endpoints ---
+app.post('/api/pvp/start', (req, res) => {
+  try {
+    const model = (req.body && req.body.model) || 'openai/gpt-5-chat';
+    const target = (req.body && req.body.targetWord) || null;
+    const game = new WordleGame(target);
+    const id = String(nextGameId++);
+    const record = {
+      id,
+      game,
+      model,
+      createdAt: new Date().toISOString(),
+      humanGuesses: [],
+      llmGuesses: [],
+      over: false,
+      wonBy: null,
+      targetWord: game.targetWord
+    };
+    pvpGames.set(id, record);
+    res.json({ id, model, guessesRemaining: game.maxGuesses, createdAt: record.createdAt });
+  } catch (e) {
+    res.status(500).json({ error: 'Failed to start game' });
+  }
+});
+
+app.get('/api/pvp/state/:id', (req, res) => {
+  const rec = pvpGames.get(req.params.id);
+  if (!rec) return res.status(404).json({ error: 'Game not found' });
+  const state = rec.game.getGameState();
+  const isOver = rec.over || state.gameOver;
+  res.json({
+    id: rec.id,
+    model: rec.model,
+    createdAt: rec.createdAt,
+    humanGuesses: rec.humanGuesses,
+    llmGuesses: rec.llmGuesses,
+    over: isOver,
+    wonBy: rec.wonBy,
+    guessesRemaining: state.guessesRemaining,
+    targetWord: isOver ? state.targetWord : null
+  });
+});
+
+// Human submits a guess; immediately schedule LLM guess using latest context
+app.post('/api/pvp/guess/:id', async (req, res) => {
+  const rec = pvpGames.get(req.params.id);
+  if (!rec) return res.status(404).json({ error: 'Game not found' });
+  if (!req.body || !req.body.word) return res.status(400).json({ error: 'Missing word' });
+
+  const humanWord = String(req.body.word).toUpperCase();
+  const humanResult = rec.game.makeGuess(humanWord);
+  if (humanResult.error) return res.status(400).json({ error: humanResult.error });
+  rec.humanGuesses.push({ word: humanWord, result: humanResult.result, timestamp: new Date().toISOString() });
+
+  if (humanResult.gameOver) {
+    rec.over = true;
+    rec.wonBy = humanResult.won ? 'human' : 'none';
+    persistPvp(rec);
+    return res.json({ human: humanResult, llm: null, over: rec.over, wonBy: rec.wonBy });
+  }
+
+  // Fire LLM guess without blocking user response
+  triggerLlmGuess(rec).catch(err => {
+    appendFileSync('arena-errors.log', `${new Date().toISOString()} - PVP_LLM_GUESS_ERROR: ${err.message}\n`);
+  });
+
+  res.json({ human: humanResult, llm: null, over: rec.over, wonBy: rec.wonBy });
+});
+
+async function triggerLlmGuess(rec) {
+  if (rec.over) return;
+  const arena = new WordleArena();
+  // Build game state from the authoritative game in rec, but exclude human guesses
+  const gameState = rec.game.getGameState();
+  
+  // Create a modified game state that only includes LLM's own guesses
+  const llmOnlyGuesses = rec.llmGuesses.filter(g => g.word && g.result).map(g => ({
+    word: g.word,
+    result: g.result
+  }));
+  
+  const llmGameState = {
+    ...gameState,
+    guesses: llmOnlyGuesses,
+    guessesRemaining: Math.max(0, 6 - llmOnlyGuesses.length)
+  };
+  
+  const prompt = arena.createPrompt(llmGameState);
+  const client = new OpenRouterClient();
+
+  try {
+    const guess = await client.chat(rec.model, [{ role: 'user', content: prompt }], 50);
+    const llmResult = rec.game.makeGuess(guess);
+    rec.llmGuesses.push({ word: guess, result: llmResult.result, timestamp: new Date().toISOString() });
+    if (llmResult.gameOver) {
+      rec.over = true;
+      rec.wonBy = llmResult.won ? 'llm' : 'none';
+      persistPvp(rec);
+    }
+  } catch (e) {
+    rec.llmGuesses.push({ word: null, error: e.message, timestamp: new Date().toISOString() });
+  }
+}
+
+function persistPvp(rec) {
+  try {
+    const data = {
+      id: rec.id,
+      model: rec.model,
+      createdAt: rec.createdAt,
+      targetWord: rec.targetWord,
+      humanGuesses: rec.humanGuesses,
+      llmGuesses: rec.llmGuesses,
+      over: rec.over,
+      wonBy: rec.wonBy
+    };
+    const ts = new Date().toISOString().replace(/[:.]/g, '-');
+    writeFileSync(`results/pvp/game-${rec.id}-${ts}.json`, JSON.stringify(data, null, 2));
+  } catch {}
+}
+
+// List PvP games (from disk, newest first)
+app.get('/api/pvp/games', (req, res) => {
+  try {
+    const files = readdirSync('results/pvp')
+      .filter(f => f.startsWith('game-') && f.endsWith('.json'))
+      .sort()
+      .reverse();
+    res.json({ files });
+  } catch (e) {
+    res.json({ files: [] });
+  }
 });
 
 app.get('/api/results/:filename', (req, res) => {
@@ -192,6 +338,11 @@ app.get('/api/game/:model/:gameNumber', (req, res) => {
 
 app.get('/', (req, res) => {
   res.send(generateHTML());
+});
+
+// Split-screen PvP UI (static asset)
+app.get('/pvp', (req, res) => {
+  res.sendFile(join(__dirname, 'public/pvp/index.html'));
 });
 
 function generateHTML() {
@@ -1272,6 +1423,7 @@ function generateHTML() {
 </body>
 </html>`;
 }
+
 
 console.log(`Server starting on port ${PORT}...`);
 app.listen(PORT, '0.0.0.0', () => {

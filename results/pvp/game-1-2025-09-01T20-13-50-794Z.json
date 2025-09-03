@@ -1,0 +1,200 @@
+{
+  "id": "1",
+  "model": "openai/gpt-5-chat",
+  "createdAt": "2025-09-01T20:11:44.276Z",
+  "targetWord": "PIECE",
+  "humanGuesses": [
+    {
+      "word": "CRANE",
+      "result": {
+        "correct": [
+          {
+            "position": 4,
+            "letter": "E"
+          }
+        ],
+        "wrong_position": [
+          {
+            "position": 0,
+            "letter": "C"
+          }
+        ],
+        "not_in_word": [
+          {
+            "position": 1,
+            "letter": "R"
+          },
+          {
+            "position": 2,
+            "letter": "A"
+          },
+          {
+            "position": 3,
+            "letter": "N"
+          }
+        ]
+      },
+      "timestamp": "2025-09-01T20:11:46.748Z"
+    },
+    {
+      "word": "NIECE",
+      "result": {
+        "correct": [
+          {
+            "position": 1,
+            "letter": "I"
+          },
+          {
+            "position": 2,
+            "letter": "E"
+          },
+          {
+            "position": 3,
+            "letter": "C"
+          },
+          {
+            "position": 4,
+            "letter": "E"
+          }
+        ],
+        "wrong_position": [],
+        "not_in_word": [
+          {
+            "position": 0,
+            "letter": "N"
+          }
+        ]
+      },
+      "timestamp": "2025-09-01T20:13:39.858Z"
+    },
+    {
+      "word": "PEICE",
+      "result": {
+        "correct": [
+          {
+            "position": 0,
+            "letter": "P"
+          },
+          {
+            "position": 3,
+            "letter": "C"
+          },
+          {
+            "position": 4,
+            "letter": "E"
+          }
+        ],
+        "wrong_position": [
+          {
+            "position": 1,
+            "letter": "E"
+          },
+          {
+            "position": 2,
+            "letter": "I"
+          }
+        ],
+        "not_in_word": []
+      },
+      "timestamp": "2025-09-01T20:13:50.032Z"
+    }
+  ],
+  "llmGuesses": [
+    {
+      "word": "CLEST",
+      "result": {
+        "correct": [
+          {
+            "position": 2,
+            "letter": "E"
+          }
+        ],
+        "wrong_position": [
+          {
+            "position": 0,
+            "letter": "C"
+          }
+        ],
+        "not_in_word": [
+          {
+            "position": 1,
+            "letter": "L"
+          },
+          {
+            "position": 3,
+            "letter": "S"
+          },
+          {
+            "position": 4,
+            "letter": "T"
+          }
+        ]
+      },
+      "timestamp": "2025-09-01T20:11:47.484Z"
+    },
+    {
+      "word": "CIVET",
+      "result": {
+        "correct": [
+          {
+            "position": 1,
+            "letter": "I"
+          }
+        ],
+        "wrong_position": [
+          {
+            "position": 0,
+            "letter": "C"
+          },
+          {
+            "position": 3,
+            "letter": "E"
+          }
+        ],
+        "not_in_word": [
+          {
+            "position": 2,
+            "letter": "V"
+          },
+          {
+            "position": 4,
+            "letter": "T"
+          }
+        ]
+      },
+      "timestamp": "2025-09-01T20:13:40.425Z"
+    },
+    {
+      "word": "PIECE",
+      "result": {
+        "correct": [
+          {
+            "position": 0,
+            "letter": "P"
+          },
+          {
+            "position": 1,
+            "letter": "I"
+          },
+          {
+            "position": 2,
+            "letter": "E"
+          },
+          {
+            "position": 3,
+            "letter": "C"
+          },
+          {
+            "position": 4,
+            "letter": "E"
+          }
+        ],
+        "wrong_position": [],
+        "not_in_word": []
+      },
+      "timestamp": "2025-09-01T20:13:50.794Z"
+    }
+  ],
+  "over": true,
+  "wonBy": "llm"
+}

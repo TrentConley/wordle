@@ -1,0 +1,197 @@
+{
+  "id": "1",
+  "model": "openai/gpt-5-chat",
+  "createdAt": "2025-09-01T19:43:27.461Z",
+  "targetWord": "SHINE",
+  "humanGuesses": [
+    {
+      "word": "CRANE",
+      "result": {
+        "correct": [
+          {
+            "position": 3,
+            "letter": "N"
+          },
+          {
+            "position": 4,
+            "letter": "E"
+          }
+        ],
+        "wrong_position": [],
+        "not_in_word": [
+          {
+            "position": 0,
+            "letter": "C"
+          },
+          {
+            "position": 1,
+            "letter": "R"
+          },
+          {
+            "position": 2,
+            "letter": "A"
+          }
+        ]
+      },
+      "timestamp": "2025-09-01T19:43:31.157Z"
+    },
+    {
+      "word": "STUNE",
+      "result": {
+        "correct": [
+          {
+            "position": 0,
+            "letter": "S"
+          },
+          {
+            "position": 3,
+            "letter": "N"
+          },
+          {
+            "position": 4,
+            "letter": "E"
+          }
+        ],
+        "wrong_position": [],
+        "not_in_word": [
+          {
+            "position": 1,
+            "letter": "T"
+          },
+          {
+            "position": 2,
+            "letter": "U"
+          }
+        ]
+      },
+      "timestamp": "2025-09-01T19:43:50.077Z"
+    },
+    {
+      "word": "SLINE",
+      "result": {
+        "correct": [
+          {
+            "position": 0,
+            "letter": "S"
+          },
+          {
+            "position": 2,
+            "letter": "I"
+          },
+          {
+            "position": 3,
+            "letter": "N"
+          },
+          {
+            "position": 4,
+            "letter": "E"
+          }
+        ],
+        "wrong_position": [],
+        "not_in_word": [
+          {
+            "position": 1,
+            "letter": "L"
+          }
+        ]
+      },
+      "timestamp": "2025-09-01T19:44:21.340Z"
+    }
+  ],
+  "llmGuesses": [
+    {
+      "word": "STONE",
+      "result": {
+        "correct": [
+          {
+            "position": 0,
+            "letter": "S"
+          },
+          {
+            "position": 3,
+            "letter": "N"
+          },
+          {
+            "position": 4,
+            "letter": "E"
+          }
+        ],
+        "wrong_position": [],
+        "not_in_word": [
+          {
+            "position": 1,
+            "letter": "T"
+          },
+          {
+            "position": 2,
+            "letter": "O"
+          }
+        ]
+      },
+      "timestamp": "2025-09-01T19:43:31.800Z"
+    },
+    {
+      "word": "SPINE",
+      "result": {
+        "correct": [
+          {
+            "position": 0,
+            "letter": "S"
+          },
+          {
+            "position": 2,
+            "letter": "I"
+          },
+          {
+            "position": 3,
+            "letter": "N"
+          },
+          {
+            "position": 4,
+            "letter": "E"
+          }
+        ],
+        "wrong_position": [],
+        "not_in_word": [
+          {
+            "position": 1,
+            "letter": "P"
+          }
+        ]
+      },
+      "timestamp": "2025-09-01T19:43:50.635Z"
+    },
+    {
+      "word": "SHINE",
+      "result": {
+        "correct": [
+          {
+            "position": 0,
+            "letter": "S"
+          },
+          {
+            "position": 1,
+            "letter": "H"
+          },
+          {
+            "position": 2,
+            "letter": "I"
+          },
+          {
+            "position": 3,
+            "letter": "N"
+          },
+          {
+            "position": 4,
+            "letter": "E"
+          }
+        ],
+        "wrong_position": [],
+        "not_in_word": []
+      },
+      "timestamp": "2025-09-01T19:44:23.428Z"
+    }
+  ],
+  "over": true,
+  "wonBy": "llm"
+}

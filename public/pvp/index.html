@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wordle PvP: You vs LLM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/pvp/style.css" />
+</head>
+<body>
+  <div class="pvp-wrap">
+    <div class="top-controls">
+      <div class="left-group">
+        <label for="model" class="label">Model</label>
+        <select id="model" class="select">
+          <option value="openai/gpt-5-chat">GPT-5 Chat</option>
+          <option value="anthropic/claude-3.5-sonnet">Claude 3.5 Sonnet</option>
+          <option value="openai/gpt-4o">GPT-4o</option>
+        </select>
+      </div>
+      <div class="status" id="status">Preparing game…</div>
+      <div class="right-group">
+        <button class="new-game-btn" id="reset">New Game</button>
+      </div>
+    </div>
+
+    <div class="games-container">
+      <div class="container" id="left">
+        <header>
+          <h1>You</h1>
+        </header>
+        <div class="game-board">
+          <div class="grid" id="grid-human"></div>
+        </div>
+        <div class="message" id="message"></div>
+      </div>
+
+      <div class="container" id="right">
+        <header>
+          <h1>LLM</h1>
+        </header>
+        <div class="game-board">
+          <div class="grid" id="grid-llm"></div>
+        </div>
+        <div class="message" id="llmMessage"></div>
+      </div>
+    </div>
+    
+    <div class="keyboard-container">
+      <div class="keyboard" id="keyboard"></div>
+    </div>
+  </div>
+
+  <canvas id="confetti" class="confetti"></canvas>
+  <script src="/pvp/script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,198 @@
+{
+  "id": "3",
+  "model": "openai/gpt-4o",
+  "createdAt": "2025-09-01T19:50:24.439Z",
+  "targetWord": "SOUND",
+  "humanGuesses": [
+    {
+      "word": "CRANE",
+      "result": {
+        "correct": [
+          {
+            "position": 3,
+            "letter": "N"
+          }
+        ],
+        "wrong_position": [],
+        "not_in_word": [
+          {
+            "position": 0,
+            "letter": "C"
+          },
+          {
+            "position": 1,
+            "letter": "R"
+          },
+          {
+            "position": 2,
+            "letter": "A"
+          },
+          {
+            "position": 4,
+            "letter": "E"
+          }
+        ]
+      },
+      "timestamp": "2025-09-01T19:50:27.324Z"
+    },
+    {
+      "word": "ADIEU",
+      "result": {
+        "correct": [],
+        "wrong_position": [
+          {
+            "position": 1,
+            "letter": "D"
+          },
+          {
+            "position": 4,
+            "letter": "U"
+          }
+        ],
+        "not_in_word": [
+          {
+            "position": 0,
+            "letter": "A"
+          },
+          {
+            "position": 2,
+            "letter": "I"
+          },
+          {
+            "position": 3,
+            "letter": "E"
+          }
+        ]
+      },
+      "timestamp": "2025-09-01T19:50:40.657Z"
+    },
+    {
+      "word": "FOUND",
+      "result": {
+        "correct": [
+          {
+            "position": 1,
+            "letter": "O"
+          },
+          {
+            "position": 2,
+            "letter": "U"
+          },
+          {
+            "position": 3,
+            "letter": "N"
+          },
+          {
+            "position": 4,
+            "letter": "D"
+          }
+        ],
+        "wrong_position": [],
+        "not_in_word": [
+          {
+            "position": 0,
+            "letter": "F"
+          }
+        ]
+      },
+      "timestamp": "2025-09-01T19:50:45.420Z"
+    }
+  ],
+  "llmGuesses": [
+    {
+      "word": "NIGHT",
+      "result": {
+        "correct": [],
+        "wrong_position": [
+          {
+            "position": 0,
+            "letter": "N"
+          }
+        ],
+        "not_in_word": [
+          {
+            "position": 1,
+            "letter": "I"
+          },
+          {
+            "position": 2,
+            "letter": "G"
+          },
+          {
+            "position": 3,
+            "letter": "H"
+          },
+          {
+            "position": 4,
+            "letter": "T"
+          }
+        ]
+      },
+      "timestamp": "2025-09-01T19:50:27.951Z"
+    },
+    {
+      "word": "BOUND",
+      "result": {
+        "correct": [
+          {
+            "position": 1,
+            "letter": "O"
+          },
+          {
+            "position": 2,
+            "letter": "U"
+          },
+          {
+            "position": 3,
+            "letter": "N"
+          },
+          {
+            "position": 4,
+            "letter": "D"
+          }
+        ],
+        "wrong_position": [],
+        "not_in_word": [
+          {
+            "position": 0,
+            "letter": "B"
+          }
+        ]
+      },
+      "timestamp": "2025-09-01T19:50:41.230Z"
+    },
+    {
+      "word": "WOUND",
+      "result": {
+        "correct": [
+          {
+            "position": 1,
+            "letter": "O"
+          },
+          {
+            "position": 2,
+            "letter": "U"
+          },
+          {
+            "position": 3,
+            "letter": "N"
+          },
+          {
+            "position": 4,
+            "letter": "D"
+          }
+        ],
+        "wrong_position": [],
+        "not_in_word": [
+          {
+            "position": 0,
+            "letter": "W"
+          }
+        ]
+      },
+      "timestamp": "2025-09-01T19:50:45.800Z"
+    }
+  ],
+  "over": true,
+  "wonBy": "none"
+}

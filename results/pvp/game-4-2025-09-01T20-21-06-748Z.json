@@ -1,0 +1,167 @@
+{
+  "id": "4",
+  "model": "openai/gpt-5-chat",
+  "createdAt": "2025-09-01T20:18:14.636Z",
+  "targetWord": "BEGIN",
+  "humanGuesses": [
+    {
+      "word": "ADIEU",
+      "result": {
+        "correct": [],
+        "wrong_position": [
+          {
+            "position": 2,
+            "letter": "I"
+          },
+          {
+            "position": 3,
+            "letter": "E"
+          }
+        ],
+        "not_in_word": [
+          {
+            "position": 0,
+            "letter": "A"
+          },
+          {
+            "position": 1,
+            "letter": "D"
+          },
+          {
+            "position": 4,
+            "letter": "U"
+          }
+        ]
+      },
+      "timestamp": "2025-09-01T20:18:18.090Z"
+    },
+    {
+      "word": "CHEIN",
+      "result": {
+        "correct": [
+          {
+            "position": 3,
+            "letter": "I"
+          },
+          {
+            "position": 4,
+            "letter": "N"
+          }
+        ],
+        "wrong_position": [
+          {
+            "position": 2,
+            "letter": "E"
+          }
+        ],
+        "not_in_word": [
+          {
+            "position": 0,
+            "letter": "C"
+          },
+          {
+            "position": 1,
+            "letter": "H"
+          }
+        ]
+      },
+      "timestamp": "2025-09-01T20:20:13.641Z"
+    },
+    {
+      "word": "BEGIN",
+      "result": {
+        "correct": [
+          {
+            "position": 0,
+            "letter": "B"
+          },
+          {
+            "position": 1,
+            "letter": "E"
+          },
+          {
+            "position": 2,
+            "letter": "G"
+          },
+          {
+            "position": 3,
+            "letter": "I"
+          },
+          {
+            "position": 4,
+            "letter": "N"
+          }
+        ],
+        "wrong_position": [],
+        "not_in_word": []
+      },
+      "timestamp": "2025-09-01T20:21:06.748Z"
+    }
+  ],
+  "llmGuesses": [
+    {
+      "word": "TIMER",
+      "result": {
+        "correct": [],
+        "wrong_position": [
+          {
+            "position": 1,
+            "letter": "I"
+          },
+          {
+            "position": 3,
+            "letter": "E"
+          }
+        ],
+        "not_in_word": [
+          {
+            "position": 0,
+            "letter": "T"
+          },
+          {
+            "position": 2,
+            "letter": "M"
+          },
+          {
+            "position": 4,
+            "letter": "R"
+          }
+        ]
+      },
+      "timestamp": "2025-09-01T20:18:18.807Z"
+    },
+    {
+      "word": "SPINE",
+      "result": {
+        "correct": [],
+        "wrong_position": [
+          {
+            "position": 2,
+            "letter": "I"
+          },
+          {
+            "position": 3,
+            "letter": "N"
+          },
+          {
+            "position": 4,
+            "letter": "E"
+          }
+        ],
+        "not_in_word": [
+          {
+            "position": 0,
+            "letter": "S"
+          },
+          {
+            "position": 1,
+            "letter": "P"
+          }
+        ]
+      },
+      "timestamp": "2025-09-01T20:20:14.220Z"
+    }
+  ],
+  "over": true,
+  "wonBy": "human"
+}
