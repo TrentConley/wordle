@@ -1,1 +1,12 @@
 .env
+
+# Ignore Wordle arena result files (root and results/)
+wordle-arena-results-*.json
+results/wordle-arena-results-*.json
+
+# Ignore detailed Wordle outputs
+results/detailed/
+results/responses/
+
+# Ignore PvP game results
+results/pvp/
