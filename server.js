@@ -37,6 +37,18 @@ const h2hMatches = new Map();
 const playerToMatch = new Map();
 let nextMatchId = 1;
 
+// Consider queue entries stale after 10 minutes
+const H2H_QUEUE_TTL_MS = 10 * 60 * 1000;
+
+function h2hPruneQueue() {
+  const now = Date.now();
+  for (let i = h2hQueue.length - 1; i >= 0; i--) {
+    if (!h2hQueue[i] || (now - (h2hQueue[i].joinedAt || 0)) > H2H_QUEUE_TTL_MS) {
+      h2hQueue.splice(i, 1);
+    }
+  }
+}
+
 function h2hSideFor(match, playerId) {
   if (!match) return null;
   if (match.players.a.id === playerId) return 'a';
@@ -305,6 +317,7 @@ function persistPvp(rec) {
 // --- H2H (Human vs Human) endpoints ---
 function handleH2HJoin(req, res) {
   try {
+    h2hPruneQueue();
     const playerId = String((req.body && req.body.playerId) || '').trim();
     const playerName = String((req.body && req.body.playerName) || '').trim().slice(0, 40) || 'Anonymous';
     if (!playerId) return res.status(400).json({ error: 'Missing playerId' });
@@ -357,6 +370,7 @@ function handleH2HJoin(req, res) {
 app.post('/api/h2h/join', handleH2HJoin);
 
 function handleH2HMatchFor(req, res) {
+  h2hPruneQueue();
   const playerId = String(req.params.playerId || '').trim();
   const mid = playerToMatch.get(playerId);
   if (!mid) return res.json({ status: 'waiting' });
@@ -368,12 +382,37 @@ function handleH2HMatchFor(req, res) {
 app.get('/api/h2h/match-for/:playerId', handleH2HMatchFor);
 
 function handleH2HQueue(req, res) {
+  h2hPruneQueue();
   const pid = String((req.query && req.query.playerId) || '').trim();
   const position = pid ? h2hQueue.findIndex(q => q.playerId === pid) : -1;
   res.json({ queueSize: h2hQueue.length, position: position >= 0 ? position + 1 : null });
 }
 
 app.get('/api/h2h/queue', handleH2HQueue);
+
+// Leave the H2H queue
+function handleH2HLeave(req, res) {
+  try {
+    const playerId = String((req.body && req.body.playerId) || '').trim();
+    if (!playerId) return res.status(400).json({ error: 'Missing playerId' });
+    let removed = false;
+    for (let i = h2hQueue.length - 1; i >= 0; i--) {
+      if (h2hQueue[i] && h2hQueue[i].playerId === playerId) {
+        h2hQueue.splice(i, 1);
+        removed = true;
+      }
+    }
+    // Clear any stale mapping so they won't be matched later
+    if (playerToMatch.has(playerId)) {
+      playerToMatch.delete(playerId);
+    }
+    res.json({ ok: true, removed });
+  } catch (e) {
+    res.status(200).json({ ok: false });
+  }
+}
+
+app.post('/api/h2h/leave', handleH2HLeave);
 
 function handleH2HState(req, res) {
   const id = String(req.params.id);
@@ -581,36 +620,88 @@ app.get('/h2h', (req, res) => {
 });
 
 // Humans leaderboard dynamic page with bootstrap data
-function computeHumansLeaderboard() {
+// Compute ELO ratings from H2H match results
+function computeH2HEloRatings() {
   try {
-    const dir = 'results/pvp';
-    const files = readdirSync(dir).filter(f => f.startsWith('game-') && f.endsWith('.json'));
-    const players = new Map();
+    const dir = 'results/h2h';
+    const files = readdirSync(dir).filter(f => f.startsWith('match-') && f.endsWith('.json')).sort();
+    const rating = new Map(); // playerId -> { rating, games, name }
+    const K = 32;
+    function ensure(pid, name) {
+      if (!rating.has(pid)) rating.set(pid, { rating: 1200, games: 0, name: name || 'Anonymous' });
+      const r = rating.get(pid);
+      if (name) r.name = name;
+      return r;
+    }
     for (const f of files) {
       try {
         const data = JSON.parse(readFileSync(join(dir, f), 'utf8'));
-        if (!data || !data.over) continue;
-        const id = data.playerId || `anon:${(data.playerName || 'Anonymous').trim() || 'Anonymous'}`;
-        const name = (data.playerName || 'Anonymous').trim() || 'Anonymous';
-        if (!players.has(id)) {
-          players.set(id, { id, name, games: 0, wins: 0, losses: 0, winGuessCounts: [], models: new Set(), lastPlayed: null });
+        if (!data || !data.players) continue;
+        const a = data.players.a; const b = data.players.b;
+        if (!a || !b) continue;
+        const ra = ensure(a.id, a.name);
+        const rb = ensure(b.id, b.name);
+        // Only adjust ratings on finished games
+        const over = !!data.over;
+        if (!over) continue;
+        // score
+        const winner = data.winnerId || null;
+        let Sa = 0.5, Sb = 0.5;
+        if (winner === a.id) { Sa = 1; Sb = 0; }
+        else if (winner === b.id) { Sa = 0; Sb = 1; }
+        const Ea = 1 / (1 + Math.pow(10, (rb.rating - ra.rating) / 400));
+        const Eb = 1 / (1 + Math.pow(10, (ra.rating - rb.rating) / 400));
+        ra.rating = ra.rating + K * (Sa - Ea);
+        rb.rating = rb.rating + K * (Sb - Eb);
+        ra.games += 1; rb.games += 1;
+      } catch {}
+    }
+    return rating;
+  } catch {
+    return new Map();
+  }
+}
+
+function computeHumansLeaderboard() {
+  try {
+    // Aggregate H2H match results for basic stats
+    const dir = 'results/h2h';
+    const files = readdirSync(dir).filter(f => f.startsWith('match-') && f.endsWith('.json'));
+    const players = new Map(); // id -> stats
+    for (const f of files) {
+      try {
+        const data = JSON.parse(readFileSync(join(dir, f), 'utf8'));
+        if (!data || !data.players) continue;
+        const a = data.players.a; const b = data.players.b;
+        for (const pl of [a, b]) {
+          if (!players.has(pl.id)) {
+            players.set(pl.id, { id: pl.id, name: (pl.name || 'Anonymous').trim() || 'Anonymous', games: 0, wins: 0, losses: 0, lastPlayed: null });
+          }
         }
-        const p = players.get(id);
-        p.games += 1;
-        if (data.model) p.models.add(data.model);
-        const playedAt = new Date(data.createdAt || 0).toISOString();
-        p.lastPlayed = p.lastPlayed && p.lastPlayed > playedAt ? p.lastPlayed : playedAt;
-        const humanGuessCount = Array.isArray(data.humanGuesses) ? data.humanGuesses.filter(g => g && g.word).length : 0;
-        if (data.wonBy === 'human') {
-          p.wins += 1;
-          if (humanGuessCount > 0) p.winGuessCounts.push(humanGuessCount);
-        } else {
-          p.losses += 1;
+        if (data.over) {
+          // Update stats
+          const winner = data.winnerId || null;
+          const playedAt = new Date(data.createdAt || 0).toISOString();
+          for (const pl of [a, b]) {
+            const p = players.get(pl.id);
+            p.games += 1;
+            p.lastPlayed = p.lastPlayed && p.lastPlayed > playedAt ? p.lastPlayed : playedAt;
+          }
+          if (winner) {
+            const loser = winner === a.id ? b.id : a.id;
+            players.get(winner).wins += 1;
+            players.get(loser).losses += 1;
+          }
         }
       } catch {}
     }
+
+    // Compute ELO
+    const rating = computeH2HEloRatings();
+
     const leaderboard = Array.from(players.values()).map(p => {
-      const avgGuesses = p.winGuessCounts.length ? (p.winGuessCounts.reduce((a,b)=>a+b,0) / p.winGuessCounts.length) : 0;
+      const r = rating.get(p.id);
+      const elo = r ? Math.round(r.rating) : 1200;
       const winRate = p.games > 0 ? (p.wins / p.games * 100) : 0;
       return {
         playerId: p.id,
@@ -619,15 +710,15 @@ function computeHumansLeaderboard() {
         wins: p.wins,
         losses: p.losses,
         winRate,
-        averageGuesses: avgGuesses,
-        uniqueModels: p.models.size,
+        elo,
         lastPlayed: p.lastPlayed
       };
     }).sort((a, b) => {
+      if (b.elo !== a.elo) return b.elo - a.elo;
       if (b.wins !== a.wins) return b.wins - a.wins;
-      if (Math.abs(b.winRate - a.winRate) > 1) return b.winRate - a.winRate;
-      return a.averageGuesses - b.averageGuesses;
+      return (b.winRate - a.winRate);
     });
+
     return { leaderboard, count: leaderboard.length, lastScan: new Date().toISOString() };
   } catch (e) {
     return { leaderboard: [], count: 0, lastScan: new Date().toISOString() };
@@ -1917,4 +2008,4 @@ if (process.env.NODE_ENV !== 'test') {
   });
 }
 
-export { app, handleApiLeaderboard, handlePvpStart, handlePvpState, handlePvpGuess, handleH2HJoin, handleH2HMatchFor, handleH2HQueue, handleH2HState, handleH2HGuess };
+export { app, handleApiLeaderboard, handlePvpStart, handlePvpState, handlePvpGuess, handleH2HJoin, handleH2HMatchFor, handleH2HQueue, handleH2HState, handleH2HGuess, handleH2HLeave };

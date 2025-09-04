@@ -9,6 +9,8 @@ let gameState = {
   paintedMyRows: 0,
   paintedOppRows: 0
 };
+let queueJoinedAt = 0;
+let queuePollTimer = null;
 
 const statusEl = document.getElementById('status');
 const gridHuman = document.getElementById('grid-human');
@@ -147,7 +149,11 @@ async function joinQueue(){
       const posStr = d.position? ` (position ${d.position}/${d.queueSize})` : '';
       statusEl.textContent = `Waiting in queue${posStr}…`;
     }
-    const iv = setInterval(async ()=>{
+    // Start timers
+    queueJoinedAt = Date.now();
+    // Periodic poll for match and queue position
+    clearInterval(queuePollTimer); 
+    queuePollTimer = setInterval(async ()=>{
       try {
         const rr = await fetch(`/api/h2h/match-for/${playerId}`); const dd = await rr.json();
         if(dd.status==='matched'){ clearInterval(iv); initMatch(dd.matchId); return; }
@@ -155,12 +161,27 @@ async function joinQueue(){
         const posStr2 = qd.position? ` (position ${qd.position}/${qd.queueSize})` : '';
         statusEl.textContent = `Waiting in queue${posStr2}…`;
       } catch{}
+      // After 5 minutes, ask to keep waiting
+      const waitedMs = Date.now() - queueJoinedAt;
+      if (waitedMs > 5 * 60 * 1000) {
+        clearInterval(queuePollTimer);
+        const keep = window.confirm('You\'ve been waiting for 5 minutes. Keep waiting for a player?');
+        if (keep) {
+          queueJoinedAt = Date.now();
+          joinQueue();
+        } else {
+          await leaveQueue();
+          statusEl.textContent = 'You left the queue. You can re-enter or play vs LLM.';
+          const rq=document.getElementById('requeue'); if(rq) rq.disabled=false;
+        }
+      }
     }, 1500);
   } catch(e){ statusEl.textContent = 'Queue error. Retrying…'; setTimeout(joinQueue, 1500); }
 }
 
 function initMatch(id){
   matchId = id;
+  clearInterval(queuePollTimer);
   gameState = { over:false, winnerId:null, myRow:0, oppRow:0, currentGuess:'', paintedMyRows:0, paintedOppRows:0 };
   buildGrids(); buildKeyboard(); fetchState();
   setInterval(()=>{ if(matchId && !gameState.over) fetchState(); }, 2000);
@@ -267,9 +288,27 @@ function flash(type){
 playerId = getOrCreatePlayerId();
 const savedName = (localStorage.getItem('playerName')||'').trim();
 buildGrids(); buildKeyboard();
-if(!savedName){ showNameModal('Enter a unique name to play.'); }
-else { joinQueue(); }
+if(!savedName){
+  showNameModal('Enter a unique name to play.');
+} else {
+  // Ask for confirmation to enter queue even if name is saved
+  showNameModal('Ready to find an opponent? You can change your name.');
+}
 
 // Requeue button
 const rqBtn = document.getElementById('requeue');
 if(rqBtn){ rqBtn.addEventListener('click', ()=>{ matchId=null; statusEl.textContent='Matching you with an opponent…'; rqBtn.disabled=true; joinQueue(); }); }
+
+// Leave queue button
+const lqBtn = document.getElementById('leaveQueue');
+async function leaveQueue(){
+  try {
+    clearInterval(queuePollTimer);
+    await fetch('/api/h2h/leave', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ playerId }) });
+  } catch {}
+}
+if(lqBtn){ lqBtn.addEventListener('click', async ()=>{
+  await leaveQueue();
+  statusEl.textContent = 'You left the queue. You can re-enter or play vs LLM.';
+  const rq=document.getElementById('requeue'); if(rq) rq.disabled=false;
+}); }

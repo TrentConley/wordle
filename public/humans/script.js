@@ -29,12 +29,11 @@ async function load(){
       <tr>
         <td class="rank">#${i+1}</td>
         <td class="name">${esc(p.playerName)}</td>
+        <td class="ok">${p.elo ?? 1200}</td>
         <td class="ok">${p.wins}</td>
         <td>${p.losses}</td>
         <td>${fmtPct(p.winRate)}</td>
-        <td>${fmtNum(p.averageGuesses)}</td>
         <td>${p.games}</td>
-        <td>${p.uniqueModels}</td>
         <td class="muted mono">${esc(p.lastPlayed || '')}</td>
       </tr>`).join('');
     meta.textContent = `Players: ${data.count} • Updated: ${new Date(data.lastScan).toLocaleString()}`;
