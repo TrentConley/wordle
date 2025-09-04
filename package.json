@@ -7,13 +7,17 @@
   "scripts": {
     "start": "node server.js",
     "arena": "node run-arena.js",
-    "server": "node server.js"
+    "server": "node server.js",
+    "test": "node --test test/*.test.js"
   },
   "dependencies": {
     "axios": "^1.6.0",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "supertest": "^6.3.3"
   },
   "keywords": [
     "llm",

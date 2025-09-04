@@ -6,14 +6,15 @@ import { fileURLToPath } from 'url';
 import { WordleArena } from './arena.js';
 import { WordleGame } from './wordle.js';
 import { OpenRouterClient } from './openrouter.js';
+import { PREMIUM_MODELS, CUTTING_EDGE_MODELS, DEFAULT_MODELS, BUDGET_MODELS, MODEL_CONFIGS } from './config.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
-const PORT = 8080;
+const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 8080;
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public'));
+// Serve static assets after route handlers to ensure explicit routes like /pvp and /pvai win
 
 let currentArena = null;
 let isRunning = false;
@@ -27,7 +28,37 @@ let nextGameId = 1;
 try {
   mkdirSync('results', { recursive: true });
   mkdirSync('results/pvp', { recursive: true });
+  mkdirSync('results/h2h', { recursive: true });
 } catch {}
+
+// --- Human vs Human (H2H) matchmaking ---
+const h2hQueue = [];
+const h2hMatches = new Map();
+const playerToMatch = new Map();
+let nextMatchId = 1;
+
+function h2hSideFor(match, playerId) {
+  if (!match) return null;
+  if (match.players.a.id === playerId) return 'a';
+  if (match.players.b.id === playerId) return 'b';
+  return null;
+}
+
+function h2hPersist(match) {
+  try {
+    const out = {
+      id: match.id,
+      createdAt: match.createdAt,
+      targetWord: match.targetWord,
+      players: match.players,
+      guesses: match.guesses,
+      over: match.over,
+      winnerId: match.winnerId || null
+    };
+    const ts = new Date().toISOString().replace(/[:.]/g, '-');
+    writeFileSync(`results/h2h/match-${match.id}-${ts}.json`, JSON.stringify(out, null, 2));
+  } catch {}
+}
 
 const getLatestResults = () => {
   try {
@@ -55,12 +86,9 @@ const getLatestResults = () => {
   }
 };
 
-app.get('/api/leaderboard', (req, res) => {
+function computeLlmLeaderboard() {
   const results = getLatestResults();
-  if (!results) {
-    return res.json({ error: 'No results available' });
-  }
-
+  if (!results) return null;
   const leaderboard = Object.entries(results.data)
     .map(([model, data]) => ({
       model,
@@ -72,25 +100,46 @@ app.get('/api/leaderboard', (req, res) => {
       guessDistribution: data.stats.guessDistribution
     }))
     .sort((a, b) => {
-      if (Math.abs(a.winRate - b.winRate) > 1) {
-        return b.winRate - a.winRate;
-      }
+      if (Math.abs(a.winRate - b.winRate) > 1) return b.winRate - a.winRate;
       return a.averageGuesses - b.averageGuesses;
     });
+  return { leaderboard, lastUpdated: results.filename, isRunning, progress: currentProgress };
+}
 
-  res.json({
-    leaderboard,
-    lastUpdated: results.filename,
-    isRunning,
-    progress: currentProgress
-  });
-});
+function handleApiLeaderboard(req, res) {
+  const payload = computeLlmLeaderboard();
+  if (!payload) return res.json({ error: 'No results available' });
+  res.json(payload);
+}
+
+app.get('/api/leaderboard', handleApiLeaderboard);
+app.get('/pvp/api/leaderboard', handleApiLeaderboard);
+
+// Available models for PvP selection
+function handleModels(req, res) {
+  try {
+    const set = new Set([
+      ...PREMIUM_MODELS,
+      ...CUTTING_EDGE_MODELS,
+      ...DEFAULT_MODELS,
+      ...BUDGET_MODELS
+    ]);
+    const models = Array.from(set).map(id => ({ id, ...(MODEL_CONFIGS[id] || {}) }));
+    res.json({ models });
+  } catch (e) {
+    res.status(200).json({ models: [] });
+  }
+}
+app.get('/api/models', handleModels);
+app.get('/pvp/api/models', handleModels);
 
 // --- PvP (Human vs LLM) endpoints ---
-app.post('/api/pvp/start', (req, res) => {
+function handlePvpStart(req, res) {
   try {
     const model = (req.body && req.body.model) || 'openai/gpt-5-chat';
     const target = (req.body && req.body.targetWord) || null;
+    const playerId = (req.body && req.body.playerId) || null;
+    const playerName = (req.body && String(req.body.playerName || '').trim().slice(0, 40)) || null;
     const game = new WordleGame(target);
     const id = String(nextGameId++);
     const record = {
@@ -102,25 +151,26 @@ app.post('/api/pvp/start', (req, res) => {
       llmGuesses: [],
       over: false,
       wonBy: null,
-      targetWord: game.targetWord
+      targetWord: game.targetWord,
+      playerId: playerId || null,
+      playerName: playerName || null
     };
     pvpGames.set(id, record);
-    // Kick off the LLM's first guess in the background so both players start
-    triggerLlmGuess(record).catch(err => {
-      appendFileSync('arena-errors.log', `${new Date().toISOString()} - PVP_LLM_GUESS_ERROR: ${err.message}\n`);
-    });
 
-    res.json({ id, model, guessesRemaining: game.maxGuesses, createdAt: record.createdAt });
+    res.json({ id, model, guessesRemaining: game.maxGuesses, createdAt: record.createdAt, playerId: record.playerId, playerName: record.playerName });
   } catch (e) {
     res.status(500).json({ error: 'Failed to start game' });
   }
-});
+}
+app.post('/api/pvp/start', handlePvpStart);
+app.post('/pvp/api/pvp/start', handlePvpStart);
 
-app.get('/api/pvp/state/:id', (req, res) => {
+function handlePvpState(req, res) {
   const rec = pvpGames.get(req.params.id);
   if (!rec) return res.status(404).json({ error: 'Game not found' });
   const state = rec.game.getGameState();
-  const isOver = rec.over || state.gameOver;
+  const isOver = !!rec.over;
+  const humanGuessesRemaining = Math.max(0, 6 - (rec.humanGuesses?.filter(g => g.word).length || 0));
   res.json({
     id: rec.id,
     model: rec.model,
@@ -129,25 +179,52 @@ app.get('/api/pvp/state/:id', (req, res) => {
     llmGuesses: rec.llmGuesses,
     over: isOver,
     wonBy: rec.wonBy,
-    guessesRemaining: state.guessesRemaining,
-    targetWord: isOver ? state.targetWord : null
+    guessesRemaining: humanGuessesRemaining,
+    humanGuessesRemaining,
+    targetWord: isOver ? rec.targetWord : null
   });
-});
+}
+app.get('/api/pvp/state/:id', handlePvpState);
+app.get('/pvp/api/pvp/state/:id', handlePvpState);
 
 // Human submits a guess; immediately schedule LLM guess using latest context
-app.post('/api/pvp/guess/:id', async (req, res) => {
+async function handlePvpGuess(req, res) {
   const rec = pvpGames.get(req.params.id);
   if (!rec) return res.status(404).json({ error: 'Game not found' });
   if (!req.body || !req.body.word) return res.status(400).json({ error: 'Missing word' });
 
   const humanWord = String(req.body.word).toUpperCase();
-  const humanResult = rec.game.makeGuess(humanWord);
-  if (humanResult.error) return res.status(400).json({ error: humanResult.error });
-  rec.humanGuesses.push({ word: humanWord, result: humanResult.result, timestamp: new Date().toISOString() });
+  // Validate
+  if (humanWord.length !== 5) return res.status(400).json({ error: 'Word must be 5 letters long' });
+  if (!rec.game.isValidWord(humanWord)) return res.status(400).json({ error: 'Not a valid word' });
+  // Evaluate without mutating shared game over state
+  const evalResult = rec.game.evaluateGuess(humanWord);
+  const humanResult = {
+    word: humanWord,
+    result: evalResult,
+    gameOver: false,
+    won: false,
+    guessNumber: (rec.humanGuesses?.length || 0) + 1,
+    targetWord: null
+  };
+  rec.humanGuesses.push({ word: humanWord, result: evalResult, timestamp: new Date().toISOString() });
 
-  if (humanResult.gameOver) {
+  // Check win/over conditions for PvP (6 per side)
+  if (humanWord === rec.targetWord) {
     rec.over = true;
-    rec.wonBy = humanResult.won ? 'human' : 'none';
+    rec.wonBy = 'human';
+    humanResult.gameOver = true;
+    humanResult.won = true;
+    humanResult.targetWord = rec.targetWord;
+    persistPvp(rec);
+    return res.json({ human: humanResult, llm: null, over: rec.over, wonBy: rec.wonBy });
+  }
+  if ((rec.humanGuesses.filter(g=>g.word).length >= 6) && (rec.llmGuesses.filter(g=>g.word).length >= 6)) {
+    rec.over = true;
+    rec.wonBy = 'none';
+    humanResult.gameOver = true;
+    humanResult.won = false;
+    humanResult.targetWord = rec.targetWord;
     persistPvp(rec);
     return res.json({ human: humanResult, llm: null, over: rec.over, wonBy: rec.wonBy });
   }
@@ -158,13 +235,13 @@ app.post('/api/pvp/guess/:id', async (req, res) => {
   });
 
   res.json({ human: humanResult, llm: null, over: rec.over, wonBy: rec.wonBy });
-});
+}
+app.post('/api/pvp/guess/:id', handlePvpGuess);
+app.post('/pvp/api/pvp/guess/:id', handlePvpGuess);
 
 async function triggerLlmGuess(rec) {
   if (rec.over) return;
   const arena = new WordleArena();
-  // Build game state from the authoritative game in rec, but exclude human guesses
-  const gameState = rec.game.getGameState();
   
   // Create a modified game state that only includes LLM's own guesses
   const llmOnlyGuesses = rec.llmGuesses.filter(g => g.word && g.result).map(g => ({
@@ -173,7 +250,6 @@ async function triggerLlmGuess(rec) {
   }));
   
   const llmGameState = {
-    ...gameState,
     guesses: llmOnlyGuesses,
     guessesRemaining: Math.max(0, 6 - llmOnlyGuesses.length)
   };
@@ -183,12 +259,24 @@ async function triggerLlmGuess(rec) {
 
   try {
     const guess = await client.chat(rec.model, [{ role: 'user', content: prompt }], 50);
-    const llmResult = rec.game.makeGuess(guess);
-    rec.llmGuesses.push({ word: guess, result: llmResult.result, timestamp: new Date().toISOString() });
-    if (llmResult.gameOver) {
+    const word = String(guess || '').toUpperCase();
+    if (word.length !== 5 || !rec.game.isValidWord(word)) {
+      rec.llmGuesses.push({ word: word || null, error: 'Invalid LLM guess', timestamp: new Date().toISOString() });
+      return;
+    }
+    const evalResult = rec.game.evaluateGuess(word);
+    rec.llmGuesses.push({ word: word, result: evalResult, timestamp: new Date().toISOString() });
+    if (word === rec.targetWord) {
       rec.over = true;
-      rec.wonBy = llmResult.won ? 'llm' : 'none';
+      rec.wonBy = 'llm';
       persistPvp(rec);
+      return;
+    }
+    if ((rec.humanGuesses.filter(g=>g.word).length >= 6) && (rec.llmGuesses.filter(g=>g.word).length >= 6)) {
+      rec.over = true;
+      rec.wonBy = 'none';
+      persistPvp(rec);
+      return;
     }
   } catch (e) {
     rec.llmGuesses.push({ word: null, error: e.message, timestamp: new Date().toISOString() });
@@ -205,12 +293,138 @@ function persistPvp(rec) {
       humanGuesses: rec.humanGuesses,
       llmGuesses: rec.llmGuesses,
       over: rec.over,
-      wonBy: rec.wonBy
+      wonBy: rec.wonBy,
+      playerId: rec.playerId || null,
+      playerName: rec.playerName || null
     };
     const ts = new Date().toISOString().replace(/[:.]/g, '-');
     writeFileSync(`results/pvp/game-${rec.id}-${ts}.json`, JSON.stringify(data, null, 2));
   } catch {}
 }
+
+// --- H2H (Human vs Human) endpoints ---
+function handleH2HJoin(req, res) {
+  try {
+    const playerId = String((req.body && req.body.playerId) || '').trim();
+    const playerName = String((req.body && req.body.playerName) || '').trim().slice(0, 40) || 'Anonymous';
+    if (!playerId) return res.status(400).json({ error: 'Missing playerId' });
+
+    const existingMatchId = playerToMatch.get(playerId);
+    if (existingMatchId) {
+      const match = h2hMatches.get(existingMatchId);
+      if (match && !match.over) {
+        return res.json({ status: 'matched', matchId: match.id, side: h2hSideFor(match, playerId) });
+      }
+      // Clear stale mapping if match is over or missing
+      playerToMatch.delete(playerId);
+    }
+
+    // Try to match
+    let partnerIndex = -1;
+    for (let i = 0; i < h2hQueue.length; i++) {
+      if (h2hQueue[i].playerId !== playerId) { partnerIndex = i; break; }
+    }
+    if (partnerIndex !== -1) {
+      const partner = h2hQueue.splice(partnerIndex, 1)[0];
+      const judge = new WordleGame();
+      const id = String(nextMatchId++);
+      const match = {
+        id,
+        judge,
+        targetWord: judge.targetWord,
+        createdAt: new Date().toISOString(),
+        players: { a: { id: partner.playerId, name: partner.playerName }, b: { id: playerId, name: playerName } },
+        guesses: { a: [], b: [] },
+        over: false,
+        winnerId: null
+      };
+      h2hMatches.set(id, match);
+      playerToMatch.set(partner.playerId, id);
+      playerToMatch.set(playerId, id);
+      return res.json({ status: 'matched', matchId: id, side: 'b' });
+    }
+
+    if (!h2hQueue.some(q => q.playerId === playerId)) {
+      h2hQueue.push({ playerId, playerName, joinedAt: Date.now() });
+    }
+    const position = h2hQueue.findIndex(q => q.playerId === playerId);
+    return res.json({ status: 'waiting', queueSize: h2hQueue.length, position: position >= 0 ? position + 1 : null });
+  } catch {
+    res.status(500).json({ error: 'Failed to join queue' });
+  }
+}
+
+app.post('/api/h2h/join', handleH2HJoin);
+
+function handleH2HMatchFor(req, res) {
+  const playerId = String(req.params.playerId || '').trim();
+  const mid = playerToMatch.get(playerId);
+  if (!mid) return res.json({ status: 'waiting' });
+  const match = h2hMatches.get(mid);
+  if (!match) return res.json({ status: 'waiting' });
+  return res.json({ status: 'matched', matchId: match.id, side: h2hSideFor(match, playerId) });
+}
+
+app.get('/api/h2h/match-for/:playerId', handleH2HMatchFor);
+
+function handleH2HQueue(req, res) {
+  const pid = String((req.query && req.query.playerId) || '').trim();
+  const position = pid ? h2hQueue.findIndex(q => q.playerId === pid) : -1;
+  res.json({ queueSize: h2hQueue.length, position: position >= 0 ? position + 1 : null });
+}
+
+app.get('/api/h2h/queue', handleH2HQueue);
+
+function handleH2HState(req, res) {
+  const id = String(req.params.id);
+  const match = h2hMatches.get(id);
+  if (!match) return res.status(404).json({ error: 'Match not found' });
+  res.json({
+    id: match.id,
+    createdAt: match.createdAt,
+    players: match.players,
+    guesses: match.guesses,
+    over: match.over,
+    winnerId: match.winnerId,
+    targetWord: match.over ? match.targetWord : null
+  });
+}
+
+app.get('/api/h2h/state/:id', handleH2HState);
+
+function handleH2HGuess(req, res) {
+  const id = String(req.params.id);
+  const match = h2hMatches.get(id);
+  if (!match) return res.status(404).json({ error: 'Match not found' });
+  if (match.over) return res.status(400).json({ error: 'Match over' });
+  const playerId = String((req.body && req.body.playerId) || '').trim();
+  const word = String((req.body && req.body.word) || '').toUpperCase();
+  if (!playerId) return res.status(400).json({ error: 'Missing playerId' });
+  if (word.length !== 5) return res.status(400).json({ error: 'Word must be 5 letters long' });
+  if (!match.judge.isValidWord(word)) return res.status(400).json({ error: 'Not a valid word' });
+  const side = h2hSideFor(match, playerId);
+  if (!side) return res.status(403).json({ error: 'Not in this match' });
+  if (match.guesses[side].filter(g => g.word).length >= 6) return res.status(400).json({ error: 'No guesses remaining' });
+  const result = match.judge.evaluateGuess(word);
+  match.guesses[side].push({ word, result, timestamp: new Date().toISOString() });
+  if (word === match.targetWord) {
+    match.over = true;
+    match.winnerId = playerId;
+    h2hPersist(match);
+    // Clear mappings so players can requeue
+    playerToMatch.delete(match.players.a.id);
+    playerToMatch.delete(match.players.b.id);
+  } else if ((match.guesses.a.filter(g=>g.word).length >= 6) && (match.guesses.b.filter(g=>g.word).length >= 6)) {
+    match.over = true;
+    match.winnerId = null;
+    h2hPersist(match);
+    playerToMatch.delete(match.players.a.id);
+    playerToMatch.delete(match.players.b.id);
+  }
+  res.json({ ok: true, over: match.over, winnerId: match.winnerId, result });
+}
+
+app.post('/api/h2h/guess/:id', handleH2HGuess);
 
 // List PvP games (from disk, newest first)
 app.get('/api/pvp/games', (req, res) => {
@@ -345,12 +559,260 @@ app.get('/', (req, res) => {
   res.send(generateHTML());
 });
 
-// Split-screen PvP UI (static asset)
-app.get('/pvp', (req, res) => {
+// Alias route for LLM leaderboard page
+app.get('/leaderboard', (req, res) => {
+  const payload = computeLlmLeaderboard();
+  res.send(generateHTML(payload || undefined));
+});
+
+// PvAI (Human vs LLM) UI
+app.get('/pvai', (req, res) => {
   res.sendFile(join(__dirname, 'public/pvp/index.html'));
 });
 
-function generateHTML() {
+// PvP (Human vs Human) UI (alias of H2H)
+app.get('/pvp', (req, res) => {
+  res.sendFile(join(__dirname, 'public/h2h/index.html'));
+});
+
+// Human vs Human UI
+app.get('/h2h', (req, res) => {
+  res.sendFile(join(__dirname, 'public/h2h/index.html'));
+});
+
+// Humans leaderboard dynamic page with bootstrap data
+function computeHumansLeaderboard() {
+  try {
+    const dir = 'results/pvp';
+    const files = readdirSync(dir).filter(f => f.startsWith('game-') && f.endsWith('.json'));
+    const players = new Map();
+    for (const f of files) {
+      try {
+        const data = JSON.parse(readFileSync(join(dir, f), 'utf8'));
+        if (!data || !data.over) continue;
+        const id = data.playerId || `anon:${(data.playerName || 'Anonymous').trim() || 'Anonymous'}`;
+        const name = (data.playerName || 'Anonymous').trim() || 'Anonymous';
+        if (!players.has(id)) {
+          players.set(id, { id, name, games: 0, wins: 0, losses: 0, winGuessCounts: [], models: new Set(), lastPlayed: null });
+        }
+        const p = players.get(id);
+        p.games += 1;
+        if (data.model) p.models.add(data.model);
+        const playedAt = new Date(data.createdAt || 0).toISOString();
+        p.lastPlayed = p.lastPlayed && p.lastPlayed > playedAt ? p.lastPlayed : playedAt;
+        const humanGuessCount = Array.isArray(data.humanGuesses) ? data.humanGuesses.filter(g => g && g.word).length : 0;
+        if (data.wonBy === 'human') {
+          p.wins += 1;
+          if (humanGuessCount > 0) p.winGuessCounts.push(humanGuessCount);
+        } else {
+          p.losses += 1;
+        }
+      } catch {}
+    }
+    const leaderboard = Array.from(players.values()).map(p => {
+      const avgGuesses = p.winGuessCounts.length ? (p.winGuessCounts.reduce((a,b)=>a+b,0) / p.winGuessCounts.length) : 0;
+      const winRate = p.games > 0 ? (p.wins / p.games * 100) : 0;
+      return {
+        playerId: p.id,
+        playerName: p.name,
+        games: p.games,
+        wins: p.wins,
+        losses: p.losses,
+        winRate,
+        averageGuesses: avgGuesses,
+        uniqueModels: p.models.size,
+        lastPlayed: p.lastPlayed
+      };
+    }).sort((a, b) => {
+      if (b.wins !== a.wins) return b.wins - a.wins;
+      if (Math.abs(b.winRate - a.winRate) > 1) return b.winRate - a.winRate;
+      return a.averageGuesses - b.averageGuesses;
+    });
+    return { leaderboard, count: leaderboard.length, lastScan: new Date().toISOString() };
+  } catch (e) {
+    return { leaderboard: [], count: 0, lastScan: new Date().toISOString() };
+  }
+}
+
+function generateHumansHTML(bootstrap) {
+  const boot = bootstrap ? `<script>window.__HUMANS__ = ${JSON.stringify(bootstrap)};<\/script>` : '';
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Human Leaderboard • Wordle Arena</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/humans/style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <div class="title">Human Leaderboard</div>
+      <nav class="nav">
+        <a class="btn" href="/pvp">Play PvP</a>
+        <a class="btn" href="/leaderboard">LLM Leaderboard</a>
+      </nav>
+    </header>
+
+    <section class="status" id="status">Loading...</section>
+
+    <section class="board">
+      <table class="table" id="table" aria-label="Human leaderboard">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>Wins</th>
+            <th>Losses</th>
+            <th>Win Rate</th>
+            <th>Avg Guesses (wins)</th>
+            <th>Games</th>
+            <th>Models</th>
+            <th>Last Played</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </section>
+
+    <footer class="footer">
+      <span id="meta"></span>
+    </footer>
+  </div>
+  ${boot}
+  <script src="/humans/script.js"></script>
+</body>
+</html>`;
+}
+
+app.get('/humans', (req, res) => {
+  const payload = computeHumansLeaderboard();
+  res.send(generateHumansHTML(payload));
+});
+
+// Static assets
+app.use(express.static('public'));
+
+// Humans leaderboard API (aggregate PvP results)
+function handleHumansLeaderboard(req, res) {
+  try {
+    const dir = 'results/pvp';
+    const files = readdirSync(dir).filter(f => f.startsWith('game-') && f.endsWith('.json'));
+    const players = new Map();
+
+    for (const f of files) {
+      try {
+        const data = JSON.parse(readFileSync(join(dir, f), 'utf8'));
+        if (!data || !data.over) continue;
+        const id = data.playerId || `anon:${(data.playerName || 'Anonymous').trim() || 'Anonymous'}`;
+        const name = (data.playerName || 'Anonymous').trim() || 'Anonymous';
+        if (!players.has(id)) {
+          players.set(id, { id, name, games: 0, wins: 0, losses: 0, winGuessCounts: [], models: new Set(), lastPlayed: null });
+        }
+        const p = players.get(id);
+        p.games += 1;
+        if (data.model) p.models.add(data.model);
+        const playedAt = new Date(data.createdAt || 0).toISOString();
+        p.lastPlayed = p.lastPlayed && p.lastPlayed > playedAt ? p.lastPlayed : playedAt;
+
+        const humanGuessCount = Array.isArray(data.humanGuesses) ? data.humanGuesses.filter(g => g && g.word).length : 0;
+        if (data.wonBy === 'human') {
+          p.wins += 1;
+          if (humanGuessCount > 0) p.winGuessCounts.push(humanGuessCount);
+        } else {
+          p.losses += 1;
+        }
+      } catch {}
+    }
+
+    const leaderboard = Array.from(players.values()).map(p => {
+      const avgGuesses = p.winGuessCounts.length ? (p.winGuessCounts.reduce((a,b)=>a+b,0) / p.winGuessCounts.length) : 0;
+      const winRate = p.games > 0 ? (p.wins / p.games * 100) : 0;
+      return {
+        playerId: p.id,
+        playerName: p.name,
+        games: p.games,
+        wins: p.wins,
+        losses: p.losses,
+        winRate,
+        averageGuesses: avgGuesses,
+        uniqueModels: p.models.size,
+        lastPlayed: p.lastPlayed
+      };
+    }).sort((a, b) => {
+      if (b.wins !== a.wins) return b.wins - a.wins;
+      if (Math.abs(b.winRate - a.winRate) > 1) return b.winRate - a.winRate;
+      return a.averageGuesses - b.averageGuesses;
+    });
+
+    res.json({ leaderboard, count: leaderboard.length, lastScan: new Date().toISOString() });
+  } catch (e) {
+    res.status(200).json({ leaderboard: [], count: 0, lastScan: new Date().toISOString() });
+  }
+}
+app.get('/api/humans/leaderboard', handleHumansLeaderboard);
+app.get('/pvp/api/humans/leaderboard', handleHumansLeaderboard);
+
+// Check if a proposed playerName is available.
+// A name is considered taken if it's found in prior PvP results under a different playerId.
+function handleCheckName(req, res) {
+  try {
+    const rawName = String(req.query.name || '').trim();
+    const playerId = String(req.query.playerId || '').trim();
+    if (!rawName) {
+      return res.json({ available: false, reason: 'Empty name' });
+    }
+    if (rawName.length > 40) {
+      return res.json({ available: false, reason: 'Name too long' });
+    }
+
+    const norm = rawName.toLowerCase();
+    const dir = 'results/pvp';
+    let takenByOther = false;
+    let claimedBySelf = false;
+
+    try {
+      const files = readdirSync(dir).filter(f => f.startsWith('game-') && f.endsWith('.json'));
+      for (const f of files) {
+        try {
+          const data = JSON.parse(readFileSync(join(dir, f), 'utf8'));
+          if (!data || !data.playerName) continue;
+          const n = String(data.playerName).trim().toLowerCase();
+          if (n !== norm) continue;
+          const pid = (data.playerId || '').trim();
+          if (playerId && pid && pid === playerId) {
+            claimedBySelf = true;
+          } else if (!playerId && pid) {
+            takenByOther = true;
+          } else if (playerId && pid && pid !== playerId) {
+            takenByOther = true;
+          } else if (!pid) {
+            // A historical entry without playerId reserves the name
+            if (!playerId) takenByOther = true;
+          }
+          if (takenByOther) break;
+        } catch {}
+      }
+    } catch {}
+
+    if (takenByOther && !claimedBySelf) {
+      return res.json({ available: false, reason: 'Name already taken' });
+    }
+    return res.json({ available: true, claimedBySelf });
+  } catch (e) {
+    res.status(200).json({ available: true, reason: 'Fallback allow' });
+  }
+}
+
+app.get('/api/humans/check-name', handleCheckName);
+// Proxy/rewrites compatibility: alternate path under /pvp
+app.get('/pvp/api/humans/check-name', handleCheckName);
+
+function generateHTML(bootstrap) {
+  const bootstrapScript = bootstrap ? `<script>window.__LEADERBOARD__ = ${JSON.stringify(bootstrap)};</script>` : '';
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1194,6 +1656,8 @@ function generateHTML() {
         <div id="lastUpdated" class="last-updated" style="display: none;"></div>
     </div>
 
+    ${bootstrapScript}
+
     <!-- Games Modal -->
     <div id="gamesModal" class="modal">
         <div class="modal-content">
@@ -1211,6 +1675,8 @@ function generateHTML() {
     </div>
 
     <script>
+        // Optional bootstrap data injected by server-side rendering
+        const BOOTSTRAP = window.__LEADERBOARD__ || null;
         let refreshInterval;
         
         const formatModel = (model) => {
@@ -1237,10 +1703,22 @@ function generateHTML() {
             }).join('');
         };
         
+        async function fetchLeaderboard() {
+            const endpoints = ['/api/leaderboard', '/pvp/api/leaderboard'];
+            for (const url of endpoints) {
+                try {
+                    const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+                    const ct = res.headers.get('content-type') || '';
+                    if (!ct.includes('application/json')) continue;
+                    return await res.json();
+                } catch (e) { /* try next */ }
+            }
+            throw new Error('No leaderboard endpoint available');
+        }
+
         const loadLeaderboard = async () => {
             try {
-                const response = await fetch('/api/leaderboard');
-                const data = await response.json();
+                const data = BOOTSTRAP || await fetchLeaderboard();
                 
                 if (data.error) {
                     document.getElementById('loading').innerHTML = '<div style="color: #ef4444;"><h3>No Results Available</h3><p>Start an arena competition to see the leaderboard!</p></div>';
@@ -1288,7 +1766,7 @@ function generateHTML() {
                 });
                 
                 const lastUpdated = document.getElementById('lastUpdated');
-                lastUpdated.textContent = 'Last updated: ' + data.lastUpdated;
+                lastUpdated.textContent = 'Last updated: ' + (data.lastUpdated || '—');
                 lastUpdated.style.display = 'block';
                 
                 if (data.isRunning) {
@@ -1430,8 +1908,13 @@ function generateHTML() {
 }
 
 
-console.log(`Server starting on port ${PORT}...`);
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 LLM Wordle Arena Server running at http://localhost:${PORT}`);
-  console.log(`   Access from any device at http://YOUR_IP:${PORT}`);
-});
+// Only start the HTTP listener in non-test environments to make the app importable in tests
+if (process.env.NODE_ENV !== 'test') {
+  console.log(`Server starting on port ${PORT}...`);
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`🚀 LLM Wordle Arena Server running at http://localhost:${PORT}`);
+    console.log(`   Access from any device at http://YOUR_IP:${PORT}`);
+  });
+}
+
+export { app, handleApiLeaderboard, handlePvpStart, handlePvpState, handlePvpGuess, handleH2HJoin, handleH2HMatchFor, handleH2HQueue, handleH2HState, handleH2HGuess };

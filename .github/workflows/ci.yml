@@ -1,0 +1,69 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-node:
+    name: Node Tests (Node ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [ '18.x', '20.x', '22.x' ]
+    env:
+      CI: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Upload logs and results (always)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-artifacts-node-${{ matrix.node-version }}
+          if-no-files-found: ignore
+          path: |
+            arena-errors.log
+            results/**/*.json
+            server.out.log
+
+  docker-build:
+    name: Docker Build + Test Stage
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build runtime image
+        run: docker build -t llm-wordle-arena:ci .
+
+      - name: Build test image
+        run: docker build --target test -t llm-wordle-arena:test .
+
+      - name: Run tests in test image
+        run: docker run --rm llm-wordle-arena:test
