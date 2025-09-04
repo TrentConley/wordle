@@ -14,15 +14,13 @@
     <div class="top-controls">
       <div class="left-group">
         <label for="model" class="label">Model</label>
-        <select id="model" class="select">
-          <option value="openai/gpt-4o">GPT-4o</option>
-          <option value="anthropic/claude-3.5-sonnet">Claude 3.5 Sonnet</option>
-          <option value="openai/gpt-5-chat">GPT-5 Chat</option>
-        </select>
+        <select id="model" class="select"></select>
       </div>
       <div class="status" id="status">Preparing game…</div>
       <div class="right-group">
-        <a class="new-game-btn" id="leaderboard" href="/" role="button">Leaderboard</a>
+        <a class="new-game-btn" id="playH2H" href="/pvp" role="button">Play H2H</a>
+        <a class="new-game-btn" id="llmLeaderboard" href="/leaderboard" role="button">LLM Leaderboard</a>
+        <a class="new-game-btn" id="humansLeaderboard" href="/humans" role="button">Human Leaderboard</a>
         <button class="new-game-btn" id="reset">New Game</button>
       </div>
     </div>
@@ -30,7 +28,7 @@
     <div class="games-container">
       <div class="container" id="left">
         <header>
-          <h1>You</h1>
+          <h1 id="myNameHeader">You</h1>
         </header>
         <div class="game-board">
           <div class="grid" id="grid-human"></div>
@@ -40,7 +38,7 @@
 
       <div class="container" id="right">
         <header>
-          <h1>LLM</h1>
+          <h1 id="llmNameHeader">LLM</h1>
         </header>
         <div class="game-board">
           <div class="grid" id="grid-llm"></div>
@@ -51,6 +49,19 @@
     
     <div class="keyboard-container">
       <div class="keyboard" id="keyboard"></div>
+    </div>
+  </div>
+
+  <!-- Name Gate Overlay -->
+  <div id="nameModal" class="name-modal" style="display:none;">
+    <div class="name-card">
+      <h2>Enter Your Name</h2>
+      <p class="hint">Choose a unique name to compete on the human leaderboard.</p>
+      <input id="playerName" type="text" maxlength="40" placeholder="Your name" class="name-input" />
+      <div class="name-actions">
+        <button id="nameSubmit" class="new-game-btn">Continue</button>
+      </div>
+      <div id="nameError" class="name-error"></div>
     </div>
   </div>
 
