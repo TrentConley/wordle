@@ -133,3 +133,41 @@ Check OpenRouter pricing for current rates.
   - Build and run tests via the `test` stage:
     - `docker build --target test -t llm-wordle-arena:test .`
     - `docker run --rm llm-wordle-arena:test`
+
+## CI/CD: Auto‑deploy on passing CI
+
+This repo includes a GitHub Actions workflow (`.github/workflows/deploy.yml`) that deploys to your VM when the `CI` workflow passes on `main`.
+
+How it works:
+- The `CI` workflow runs tests on every push/PR.
+- On `main` success, `Deploy to VM` triggers via `workflow_run` and SSHes into your VM.
+- It clones/updates `/opt/llm-wordle-arena`, ensures a `.env` is present, and runs `docker compose up -d --build`.
+
+VM prerequisites:
+- Docker Engine + Compose plugin installed (check with `docker compose version`).
+- A `deploy` user with key‑based SSH access from GitHub Actions and in the `docker` group.
+- `.env` created in `/opt/llm-wordle-arena` with your runtime secrets (see `.env.example`).
+
+Setup steps:
+1) Create deploy user and SSH key
+   - `sudo adduser --disabled-password --gecos "" deploy`
+   - `sudo usermod -aG docker deploy`
+   - Add the public key to `/home/deploy/.ssh/authorized_keys`
+   - Add the matching private key to the repo secrets as `DEPLOY_KEY`
+
+2) Install Docker + Compose
+   - `curl -fsSL https://get.docker.com | sh`
+   - `sudo usermod -aG docker $USER && newgrp docker`
+   - Verify: `docker compose version`
+
+3) Prepare app directory and env
+   - `sudo mkdir -p /opt/llm-wordle-arena && sudo chown -R deploy:deploy /opt/llm-wordle-arena`
+   - `cd /opt/llm-wordle-arena && touch .env` (populate with required vars)
+
+4) Configure GitHub Secrets
+   - `DEPLOY_HOST`: VM IP/hostname
+   - `DEPLOY_USER`: `deploy`
+   - `DEPLOY_KEY`: private key for the deploy user
+   - `DEPLOY_PORT` (optional): SSH port (default 22)
+
+That’s it — merges to `main` that pass CI will auto‑deploy.
