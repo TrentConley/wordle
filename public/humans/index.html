@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Human Leaderboard • Wordle Arena</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/humans/style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <div class="title">Human Leaderboard</div>
+      <nav class="nav">
+        <a class="btn" href="/pvp">Play PvP</a>
+        <a class="btn" href="/leaderboard">LLM Leaderboard</a>
+      </nav>
+    </header>
+
+    <section class="status" id="status">Loading...</section>
+
+    <section class="board">
+      <table class="table" id="table" aria-label="Human leaderboard">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>Wins</th>
+            <th>Losses</th>
+            <th>Win Rate</th>
+            <th>Avg Guesses (wins)</th>
+            <th>Games</th>
+            <th>Models</th>
+            <th>Last Played</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </section>
+
+    <footer class="footer">
+      <span id="meta"></span>
+    </footer>
+  </div>
+
+  <script src="/humans/script.js"></script>
+</body>
+</html>
+

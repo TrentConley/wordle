@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wordle H2H: You vs Player</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/pvp/style.css" />
+</head>
+<body>
+  <div class="pvp-wrap">
+    <div class="top-controls">
+      <div class="left-group">
+        <span class="label">Mode</span>
+        <span class="label" style="color:#fff;font-weight:700">H2H</span>
+      </div>
+      <div class="status" id="status">Matching you with an opponent…</div>
+      <div class="right-group">
+        <a class="new-game-btn" href="/pvai" role="button">Play vs LLM</a>
+        <a class="new-game-btn" href="/leaderboard" role="button">LLM Leaderboard</a>
+        <a class="new-game-btn" href="/humans" role="button">Human Leaderboard</a>
+        <button class="new-game-btn" id="requeue" disabled>Back to Queue</button>
+      </div>
+    </div>
+
+    <div class="games-container">
+      <div class="container" id="left">
+        <header>
+          <h1 id="myNameHeader">You</h1>
+        </header>
+        <div class="game-board">
+          <div class="grid" id="grid-human"></div>
+        </div>
+        <div class="message" id="message"></div>
+      </div>
+
+      <div class="container" id="right">
+        <header>
+          <h1 id="oppNameHeader">Opponent</h1>
+        </header>
+        <div class="game-board">
+          <div class="grid" id="grid-opponent"></div>
+        </div>
+        <div class="message" id="oppMessage"></div>
+      </div>
+    </div>
+    
+    <div class="keyboard-container">
+      <div class="keyboard" id="keyboard"></div>
+    </div>
+  </div>
+
+  <!-- Name Gate Overlay (reuse PvP styles) -->
+  <div id="nameModal" class="name-modal" style="display:none;">
+    <div class="name-card">
+      <h2>Enter Your Name</h2>
+      <p class="hint">Choose a unique name to play head‑to‑head.</p>
+      <input id="playerName" type="text" maxlength="40" placeholder="Your name" class="name-input" />
+      <div class="name-actions">
+        <button id="nameSubmit" class="new-game-btn">Continue</button>
+      </div>
+      <div id="nameError" class="name-error"></div>
+    </div>
+  </div>
+
+  <canvas id="confetti" class="confetti"></canvas>
+
+  <script src="/h2h/script.js"></script>
+</body>
+</html>

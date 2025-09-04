@@ -10,3 +10,40 @@ results/responses/
 
 # Ignore PvP game results
 results/pvp/
+
+# Also ignore H2H results
+results/h2h/
+
+# Node dependencies
+node_modules/
+
+# Common logs and outputs
+*.log
+*.out
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+arena-errors.log
+server.out
+server.out.log
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Build/coverage artifacts
+dist/
+build/
+coverage/
+.nyc_output/
+
+# Combined and temp aggregates
+combined-best-results-*.json
+temp-*.json
+
+# Local env variants
+.env.*

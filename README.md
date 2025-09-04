@@ -113,3 +113,23 @@ Running 100 rounds across 6 models = 600 API calls. Estimated costs vary by mode
 - Premium models: ~$5.00-15.00 total
 
 Check OpenRouter pricing for current rates.
+
+## Testing
+
+- Run all tests:
+  - `npm test` (uses Node’s built-in test runner)
+- Notes:
+  - Tests avoid real network calls and run fully in-process.
+  - The server does not auto-listen during tests (`NODE_ENV=test`).
+
+## Docker
+
+- Build the runtime image:
+  - `docker build -t llm-wordle-arena .`
+- Run the server on port 8080:
+  - `docker run -p 8080:8080 --env OPENROUTER_API_KEY=... llm-wordle-arena`
+- Healthcheck probes `/api/leaderboard` (or `/leaderboard`).
+- Optional test target:
+  - Build and run tests via the `test` stage:
+    - `docker build --target test -t llm-wordle-arena:test .`
+    - `docker run --rm llm-wordle-arena:test`

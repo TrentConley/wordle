@@ -249,6 +249,13 @@ header h1 {
     color: #f5793a;
 }
 
+/* Win/Lose animations */
+.confetti { position: fixed; inset: 0; pointer-events: none; z-index: 1000; }
+.win-flash { position: fixed; inset:0; background: rgba(16,185,129,0.15); animation: winPulse 1.2s ease-out; z-index: 999; }
+.lose-flash { position: fixed; inset:0; background: rgba(239,68,68,0.15); animation: losePulse 1.2s ease-out; z-index: 999; }
+@keyframes winPulse { 0%{opacity:0} 20%{opacity:1} 100%{opacity:0} }
+@keyframes losePulse { 0%{opacity:0} 20%{opacity:1} 100%{opacity:0} }
+
 .new-game-btn {
     background-color: #538d4e;
     color: #ffffff;
@@ -298,6 +305,50 @@ header h1 {
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+/* Match input styling to select */
+.input {
+    background-color: #3a3a3c;
+    color: #ffffff;
+    border: 1px solid #565758;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    min-width: 160px;
+}
+
+.input:focus { outline: none; border-color: #818384; background-color: #565758; }
+
+/* Name modal overlay */
+.name-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(2px);
+}
+
+.name-card {
+    width: 90%;
+    max-width: 420px;
+    background: #111827;
+    border: 1px solid #374151;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    text-align: center;
+}
+
+.name-card h2 { margin: 4px 0 8px; font-size: 20px; }
+.name-card .hint { color: #9ca3af; margin-bottom: 12px; font-size: 13px; }
+.name-input { width: 100%; padding: 10px 12px; border-radius: 6px; border: 1px solid #4b5563; background: #1f2937; color: #f3f4f6; margin-bottom: 10px; font-size: 14px; }
+.name-input:focus { outline: none; border-color: #6b7280; }
+.name-actions { display: flex; justify-content: center; margin-top: 6px; }
+.name-error { color: #f87171; margin-top: 8px; min-height: 18px; font-size: 13px; }
 
 .controls {
     display: flex;
