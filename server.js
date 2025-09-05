@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { readFileSync, readdirSync, existsSync, writeFileSync, mkdirSync, appendFileSync } from 'fs';
+import { readFileSync, readdirSync, existsSync, writeFileSync, mkdirSync, appendFileSync, statSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { WordleArena } from './arena.js';
@@ -74,24 +74,39 @@ function h2hPersist(match) {
 
 const getLatestResults = () => {
   try {
-    const files = readdirSync('.')
+    // Look in both repo root and ./results for arena result files
+    const candidates = [];
+
+    const rootFiles = readdirSync('.')
       .filter(f => (f.startsWith('wordle-arena-results-') || f.startsWith('combined-best-results-') || f.startsWith('temp-')) && f.endsWith('.json'))
-      .sort()
-      .reverse();
-    
-    if (files.length === 0) return null;
-    
-    // Prioritize combined results over individual runs
-    const combinedFile = files.find(f => f.startsWith('combined-best-results-'));
-    const latestFile = combinedFile || files[0];
-    
-    const rawData = JSON.parse(readFileSync(latestFile, 'utf8'));
+      .map(f => f);
+    candidates.push(...rootFiles);
+
+    if (existsSync('results')) {
+      const resultFiles = readdirSync('results')
+        .filter(f => (f.startsWith('wordle-arena-results-') || f.startsWith('combined-best-results-') || f.startsWith('temp-')) && f.endsWith('.json'))
+        .map(f => join('results', f));
+      candidates.push(...resultFiles);
+    }
+
+    if (candidates.length === 0) return null;
+
+    // Prefer a combined-best file if present; otherwise take newest by name
+    const combinedCandidates = candidates.filter(p => p.split('/').pop().startsWith('combined-best-results-'));
+    // Sort lexicographically by filename which includes timestamp
+    const sortByNameDesc = (a, b) => (a < b ? 1 : (a > b ? -1 : 0));
+    const sortedCombined = combinedCandidates.sort(sortByNameDesc);
+    const sortedAll = candidates.sort(sortByNameDesc);
+
+    const latestPath = (sortedCombined[0] || sortedAll[0]);
+
+    const rawData = JSON.parse(readFileSync(latestPath, 'utf8'));
     
     // Handle both old and new result formats
     const data = rawData.results ? rawData.results : rawData;
     const metadata = rawData.metadata || { version: "1.0" };
     
-    return { filename: latestFile, data, metadata };
+    return { filename: latestPath, data, metadata };
   } catch (error) {
     console.error('Error reading results:', error);
     return null;
@@ -562,7 +577,74 @@ app.get('/api/games/:model', (req, res) => {
   });
 });
 
+// Proxy/rewrites compatibility: alternate path under /pvp
+app.get('/pvp/api/games/:model', (req, res) => {
+  const results = getLatestResults();
+  if (!results) {
+    return res.json({ error: 'No results available' });
+  }
+
+  const modelName = decodeURIComponent(req.params.model);
+  const modelData = results.data[modelName];
+  
+  if (!modelData) {
+    return res.status(404).json({ error: 'Model not found' });
+  }
+
+  const games = modelData.games.map((game, index) => ({
+    gameNumber: index + 1,
+    targetWord: game.targetWord,
+    won: game.won,
+    guessCount: game.guessCount,
+    error: game.error,
+    guesses: game.guesses.map(guess => ({
+      word: guess.word,
+      result: guess.result,
+      rawResponse: guess.rawResponse
+    }))
+  }));
+
+  res.json({
+    model: modelName,
+    totalGames: games.length,
+    games: games
+  });
+});
+
 app.get('/api/game/:model/:gameNumber', (req, res) => {
+  const results = getLatestResults();
+  if (!results) {
+    return res.json({ error: 'No results available' });
+  }
+
+  const modelName = decodeURIComponent(req.params.model);
+  const gameNumber = parseInt(req.params.gameNumber) - 1;
+  const modelData = results.data[modelName];
+  
+  if (!modelData || !modelData.games[gameNumber]) {
+    return res.status(404).json({ error: 'Game not found' });
+  }
+
+  const game = modelData.games[gameNumber];
+  
+  res.json({
+    model: modelName,
+    gameNumber: gameNumber + 1,
+    targetWord: game.targetWord,
+    won: game.won,
+    guessCount: game.guessCount,
+    error: game.error,
+    guesses: game.guesses.map(guess => ({
+      word: guess.word,
+      result: guess.result,
+      rawResponse: guess.rawResponse,
+      timestamp: guess.timestamp
+    }))
+  });
+});
+
+// Proxy/rewrites compatibility: alternate path under /pvp
+app.get('/pvp/api/game/:model/:gameNumber', (req, res) => {
   const results = getLatestResults();
   if (!results) {
     return res.json({ error: 'No results available' });
@@ -1937,8 +2019,26 @@ function generateHTML(bootstrap) {
             modal.style.display = 'block';
             
             try {
-                const response = await fetch('/api/games/' + modelId);
-                const data = await response.json();
+                let data = null;
+                const endpoints = [
+                    '/api/games/' + modelId,
+                    '/pvp/api/games/' + modelId
+                ];
+                for (const url of endpoints) {
+                    try {
+                        const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+                        const ct = res.headers.get('content-type') || '';
+                        if (!ct.includes('application/json')) continue;
+                        const jd = await res.json();
+                        data = jd;
+                        // Prefer non-error payloads; fall through to next if error present
+                        if (!data.error) break;
+                    } catch (e) { /* try next */ }
+                }
+                if (!data) {
+                    document.getElementById('modalBody').innerHTML = '<div style="color: #ef4444; text-align: center; padding: 40px;"><h3>Error Loading Games</h3><p>Unable to contact the games API.</p></div>';
+                    return;
+                }
                 
                 if (data.error) {
                     document.getElementById('modalBody').innerHTML = '<div style="color: #ef4444; text-align: center; padding: 40px;"><h3>Error Loading Games</h3><p>' + data.error + '</p></div>';

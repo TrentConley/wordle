@@ -42,7 +42,9 @@ coverage/
 .nyc_output/
 
 # Combined and temp aggregates
+# Allow tracking a specific combined results file for production
 combined-best-results-*.json
+!combined-best-results-2025-08-31T23-21-54-663Z.json
 temp-*.json
 
 # Local env variants
